@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Newsletter() {
+export const Newsletter = () => {
     const [email, setEmail] = useState("");
 
     const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
