@@ -20,7 +20,7 @@ export const Hero = () => {
                         className="text-foreground/90 text-white text-lg md:text-xl font-light tracking-wide mb-12 animate-fade-up"
                         style={{ animationDelay: "0.3s" }}
                     >
-                        Camisetas personalizadas para expresar tu estilo único
+                        Un estilo único, urbano y representativo
                     </p>
 
                     {/* CTAs */}

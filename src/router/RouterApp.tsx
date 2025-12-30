@@ -14,6 +14,7 @@ import { Hero } from "../components/layout/Hero";
 import { News } from "../pages/News";
 import { Man } from "../pages/Man";
 import { Woman } from "../pages/Woman";
+import { Newsletter } from "../components/layout/Newsletter";
 
 
 
@@ -47,6 +48,7 @@ const RouterApp = () => {
                             <Route path="/registro" element={<Register />} />
                         </Routes>
                     </main>
+                    <Newsletter />
                     <Footer />
                 </div>
             </BrowserRouter>

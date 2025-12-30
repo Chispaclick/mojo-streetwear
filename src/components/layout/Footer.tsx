@@ -8,14 +8,7 @@ const Footer = () => {
                     {/* Brand */}
                     <div>
                         <div className="inline-flex flex-col items-start mb-6">
-                            <div className="bg-primary-foreground px-4 py-1">
-                                <span className="text-primary font-display text-xl font-light tracking-[0.3em]">
-                                    MOJO
-                                </span>
-                            </div>
-                            <span className="text-primary-foreground text-[10px] tracking-[0.25em] mt-1 font-light">
-                                STREET WEAR
-                            </span>
+                            <img src="/Logo.png" className="w-50" />
                         </div>
                         <p className="text-primary-foreground/70 text-sm font-light max-w-xs">
                             Camisetas personalizadas de alta calidad para expresar tu estilo único.

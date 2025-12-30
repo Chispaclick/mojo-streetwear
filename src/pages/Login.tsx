@@ -35,10 +35,10 @@ export const Login = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-[70vh] flex items-center justify-center px-6">
+        <div className="min-h-[70vh] flex items-center justify-center px-6 bg-[url('/streetwear.jpg')] bg-cover bg-center h-screen w-full">
             <form
                 onSubmit={handleSubmit}
-                className="w-full max-w-md border p-8 rounded-lg"
+                className="w-full max-w-md border p-8 rounded-lg bg-white"
             >
                 <h1 className="text-2xl font-bold mb-6 text-center">
                     Iniciar sesión

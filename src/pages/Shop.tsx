@@ -7,7 +7,7 @@ import type { Product } from "../types/product";
 const products: Product[] = [
     {
         id: "1",
-        name: "Camiseta Mojo Negra",
+        name: "Camiseta Negra",
         price: 25,
         image: "/images/camiseta-negra.jpg",
         sizes: ["S", "M", "L", "XL"],
@@ -15,7 +15,7 @@ const products: Product[] = [
     },
     {
         id: "2",
-        name: "Camiseta Mojo Blanca",
+        name: "Camiseta Blanca",
         price: 25,
         image: "/images/camiseta-blanca.jpg",
         sizes: ["S", "M", "L", "XL"],
@@ -23,7 +23,7 @@ const products: Product[] = [
     },
     {
         id: "3",
-        name: "Camiseta Mojo Gris",
+        name: "Camiseta Gris",
         price: 25,
         image: "/images/camiseta-gris.jpg",
         sizes: ["S", "M", "L", "XL"],
