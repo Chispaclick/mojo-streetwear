@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    apiKey: "AIzaSyCCQ1G1vM87NUWRBRRNL9o5SLSzJFo7WIA",
+    authDomain: "mojo-shop-3a425.firebaseapp.com",
+    projectId: "mojo-shop-3a425",
+    storageBucket: "mojo-shop-3a425.firebasestorage.app",
+    messagingSenderId: "517693192512",
+    appId: "1:517693192512:web:07f9978166851cc54b22a5",
 };
 
 const app = initializeApp(firebaseConfig);
