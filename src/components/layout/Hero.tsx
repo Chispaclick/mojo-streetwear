@@ -7,54 +7,22 @@ export const Hero = () => {
                        bg-[url('/street-wear-movil.jpeg')] sm:bg-[url('/streetwear.jpg')] bg-cover bg-center h-screen w-full"
         >
             {/* Content */}
-            <div className="relative z-10 container mx-auto px-4 text-center pt-20">
-                <div className="max-w-3xl mx-auto">
+            <div className="relative z-10 container mx-auto px-4 text-center pt-20 flex items-end w-full mt-70">
+                <div className="w-full">
                     {/* Logo */}
-                    <div className="animate-fade-up" style={{ animationDelay: "0.1s" }}>
-                        {/* Solo visible en sm y superior */}
-                        <div className="hidden sm:inline-flex flex-col items-center">
-                            <img src="/Logo.png" className="w-[550px] sm:w-[550px] w-full max-w-xs" />
-                        </div>
-                    </div>
-
-                    {/* Tagline */}
-                    <p
-                        className="text-white text-lg sm:text-xl font-light tracking-wide mb-12 animate-fade-up"
-                        style={{ animationDelay: "0.3s" }}
-                    >
-                        Un estilo único, urbano y representativo
-                    </p>
+                    <img
+                        src="/Logo.png"
+                        className="hidden sm:block mx-auto w-[550px]"
+                    />
 
                     {/* CTAs */}
-                    <div
-                        className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up"
-                        style={{ animationDelay: "0.5s" }}
-                    >
-                        <button className="w-full sm:w-50 bg-white text-black p-4 rounded">
-                            <a href="#productos">Ver Colección</a>
+                    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center w-full">
+                        <button className="w-full sm:w-[320px] bg-white text-black p-4 rounded">
+                            Ver Colección
                         </button>
-                        <button className="w-full sm:w-50 border border-white text-white p-4 rounded">
-                            <a href="#personalizar">Personalizar</a>
+                        <button className="w-full sm:w-[320px] border border-white text-white p-4 rounded">
+                            Personalizar
                         </button>
-                    </div>
-
-                    {/* Features */}
-                    <div
-                        className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-xl mx-auto animate-fade-up"
-                        style={{ animationDelay: "0.7s" }}
-                    >
-                        <div className="text-center">
-                            <span className="text-2xl sm:text-3xl font-display font-light text-white">3</span>
-                            <p className="text-xs tracking-widest mt-1 uppercase text-white">Colores</p>
-                        </div>
-                        <div className="text-center border-x border-white/50">
-                            <span className="text-2xl sm:text-3xl font-display font-light text-white">100%</span>
-                            <p className="text-xs tracking-widest mt-1 uppercase text-white">Algodón</p>
-                        </div>
-                        <div className="text-center">
-                            <span className="text-2xl sm:text-3xl font-display font-light text-white">∞</span>
-                            <p className="text-xs tracking-widest mt-1 uppercase text-white">Diseños</p>
-                        </div>
                     </div>
                 </div>
             </div>
