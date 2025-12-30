@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "../pages/Home";
-import { Shop } from "../pages/Shop";
+//import { Shop } from "../pages/Shop";
 import { Product } from "../pages/Product";
 import { Cart } from "../pages/Cart";
 import { Checkout } from "../pages/Checkout";
-import { Layout } from "../components/layout/Layout";
+//import { Layout } from "../components/layout/Layout";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 import { ProtectedRoute } from "../components/ProtectedRoute";
