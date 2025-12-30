@@ -4,17 +4,17 @@ import { Home } from "../pages/Home";
 import { Product } from "../pages/Product";
 import { Cart } from "../pages/Cart";
 import { Checkout } from "../pages/Checkout";
-//import { Layout } from "../components/layout/Layout";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 import { ProtectedRoute } from "../components/ProtectedRoute";
 import Footer from "../components/layout/Footer";
-import { Navbar } from "../components/layout/Navbar";
-import { Hero } from "../components/layout/Hero";
+//import { Navbar } from "../components/layout/Navbar";
+//import { Hero } from "../components/layout/Hero";
 import { News } from "../pages/News";
 import { Man } from "../pages/Man";
 import { Woman } from "../pages/Woman";
 import { Newsletter } from "../components/layout/Newsletter";
+import { Layout } from "../components/layout/Layout";
 
 
 
@@ -23,36 +23,92 @@ import { Newsletter } from "../components/layout/Newsletter";
 
 const RouterApp = () => {
     return (
-        <>
-            <BrowserRouter>
-                <div className="flex flex-col min-h-screen">
-                    <Navbar />
-                    <Hero />
-                    <main className="flex-1">
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/novedades" element={<News />} />
-                            <Route path="/hombre" element={<Man />} />
-                            <Route path="/mujer" element={<Woman />} />
-                            <Route path="/producto/:id" element={<Product />} />
-                            <Route path="/carrito" element={<Cart />} />
-                            <Route
-                                path="/checkout"
-                                element={
-                                    <ProtectedRoute>
-                                        <Checkout />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/registro" element={<Register />} />
-                        </Routes>
-                    </main>
-                    <Newsletter />
-                    <Footer />
-                </div>
-            </BrowserRouter>
-        </>
+        <BrowserRouter>
+            <div className="flex flex-col min-h-screen">
+                <Routes>
+                    {/* Páginas con Hero */}
+                    <Route
+                        path="/"
+                        element={
+                            <Layout showHero={true}>
+                                <Home />
+                            </Layout>
+                        }
+                    />
+
+                    {/* Páginas sin Hero */}
+                    <Route
+                        path="/novedades"
+                        element={
+                            <Layout showHero={false}>
+                                <News />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/hombre"
+                        element={
+                            <Layout showHero={false}>
+                                <Man />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/mujer"
+                        element={
+                            <Layout showHero={false}>
+                                <Woman />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/producto/:id"
+                        element={
+                            <Layout showHero={false}>
+                                <Product />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/carrito"
+                        element={
+                            <Layout showHero={false}>
+                                <Cart />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/checkout"
+                        element={
+                            <Layout showHero={false}>
+                                <ProtectedRoute>
+                                    <Checkout />
+                                </ProtectedRoute>
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <Layout showHero={false}>
+                                <Login />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/registro"
+                        element={
+                            <Layout showHero={false}>
+                                <Register />
+                            </Layout>
+                        }
+                    />
+                </Routes>
+
+                <Newsletter />
+                <Footer />
+            </div>
+        </BrowserRouter>
     );
 };
 

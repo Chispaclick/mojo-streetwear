@@ -58,13 +58,20 @@ const products: Product[] = [
 
 export const Man = () => {
     return (
-        <div className="max-w-6xl mx-auto px-6 py-10">
-            <h1 className="text-3xl font-bold mb-8">Camisetas de Hombre</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
+        <>
+            <div className="min-h-screen flex items-center justify-center overflow-hidden bg-[url('/wallpaper-man.jpg')] bg-cover bg-center h-screen w-full">
+
             </div>
-        </div>
+
+
+            <div className="max-w-6xl mx-auto px-6 py-10">
+                <h1 className="text-3xl font-bold mb-8">Camisetas de Hombre</h1>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                    {products.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
+                </div>
+            </div>
+        </>
     );
 };
