@@ -1,6 +1,6 @@
 
 
-import { RootState } from "../store";
+import type { RootState } from "../store";
 import { useSelector } from "react-redux";
 
 export const Home = () => {
