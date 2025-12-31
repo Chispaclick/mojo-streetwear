@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import {
     getProductById,
     updateProduct
-} from "../../services/products.service";
-import type { Product } from "../../services/products.service";
+} from "../services/productService";
+import type { Product } from "../services/productService";
 
 export const EditarProducto = ({ productoId }: { productoId: string }) => {
     const [producto, setProducto] = useState<Product | null>(null);

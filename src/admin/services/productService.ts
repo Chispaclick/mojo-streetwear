@@ -4,11 +4,11 @@ import {
     getDocs,
     getDoc,
     doc,
-    deleteDoc,
     updateDoc,
+    deleteDoc,
     Timestamp,
 } from "firebase/firestore";
-import { db } from "../firebase/firebase";
+import { db } from "../../firebase/firebase";
 
 export interface Product {
     id?: string;
@@ -18,6 +18,7 @@ export interface Product {
     createdAt?: Timestamp;
 }
 
+// Referencia a la colección products
 const productsRef = collection(db, "products");
 
 // ➕ Crear producto

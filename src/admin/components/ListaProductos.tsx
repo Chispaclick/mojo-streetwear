@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
     getProducts,
     deleteProduct
-} from "../../services/products.service";
+} from "../services/productService";
 import { useNavigate } from "react-router-dom";
 import type { Product } from "../../types/product";
 

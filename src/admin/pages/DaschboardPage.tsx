@@ -1,4 +1,6 @@
 import { Navbar } from "../../components/layout/Navbar";
+import { AdminCard } from "../components/AdminCard";
+import { AdminSidebar } from "../components/AdminSidebar";
 //import { AdminLayout } from "../components/AdminLayout";
 
 export const DashboardPage = () => {
@@ -22,6 +24,18 @@ export const DashboardPage = () => {
                             EDITAR PRODUCTO
                         </button>
                     </div>
+                </div>
+                <div className="flex">
+                    <AdminSidebar />
+                    <main className="flex-1 p-6 bg-gray-100 min-h-screen">
+                        <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                            <AdminCard title="Productos" value={120} />
+                            <AdminCard title="Pedidos" value={45} />
+                            <AdminCard title="Usuarios" value={32} />
+                        </div>
+                        <p>Bienvenido al panel de administración de la tienda.</p>
+                    </main>
                 </div>
             </div>
         </>

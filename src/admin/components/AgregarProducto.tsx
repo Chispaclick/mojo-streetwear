@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addProduct } from "../../services/products.service";
+import { addProduct } from "../services/productService";
 
 export const AgregarProducto = () => {
     const [nombre, setNombre] = useState("");

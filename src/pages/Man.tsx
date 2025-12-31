@@ -1,77 +1,34 @@
+import { useEffect, useState } from "react";
 
-
-import ProductCard from "../components/ui/ProductCard";
+import { Link } from "react-router-dom";
+import { getProducts } from "../admin/services/productService";
 import type { Product } from "../types/product";
 
-
-// Mock data de ejemplo
-const products: Product[] = [
-    {
-        id: "1",
-        name: "Camiseta Negra",
-        price: 25,
-        image: "/images/camiseta-negra.jpg",
-        sizes: ["S", "M", "L", "XL"],
-        colors: ["Negro"],
-    },
-    {
-        id: "2",
-        name: "Camiseta Blanca",
-        price: 25,
-        image: "/images/camiseta-blanca.jpg",
-        sizes: ["S", "M", "L", "XL"],
-        colors: ["Blanco"],
-    },
-    {
-        id: "3",
-        name: "Camiseta Gris",
-        price: 25,
-        image: "/images/camiseta-gris.jpg",
-        sizes: ["S", "M", "L", "XL"],
-        colors: ["Gris"],
-    },
-    {
-        id: "4",
-        name: "Camiseta Negra",
-        price: 25,
-        image: "/images/camiseta-negra.jpg",
-        sizes: ["S", "M", "L", "XL"],
-        colors: ["Negro"],
-    },
-    {
-        id: "5",
-        name: "Camiseta Blanca",
-        price: 25,
-        image: "/images/camiseta-blanca.jpg",
-        sizes: ["S", "M", "L", "XL"],
-        colors: ["Blanco"],
-    },
-    {
-        id: "6",
-        name: "Camiseta Gris",
-        price: 25,
-        image: "/images/camiseta-gris.jpg",
-        sizes: ["S", "M", "L", "XL"],
-        colors: ["Gris"],
-    },
-];
-
 export const Man = () => {
+    const [products, setProducts] = useState<Product[]>([]);
+
+    const fetchProducts = async () => {
+        const data = await getProducts();
+        setProducts(data.filter(p => p.categoria === "Hombre"));
+    };
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
     return (
-        <>
-            <div className="min-h-screen flex items-center justify-center overflow-hidden bg-[url('/wallpaper-man.jpg')] bg-cover bg-center h-screen w-full">
-
-            </div>
-
-
-            <div className="max-w-6xl mx-auto px-6 py-10">
-                <h1 className="text-3xl font-bold mb-8">Camisetas de Hombre</h1>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                    {products.map((product) => (
-                        <ProductCard key={product.id} product={product} />
-                    ))}
+        <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {products.map(product => (
+                <div key={product.id} className="border p-4 rounded shadow">
+                    {product.imagenUrl && <img src={product.imagenUrl} alt={product.nombre} className="mb-2 w-full h-64 object-cover rounded" />}
+                    <h2 className="text-xl font-bold">{product.nombre}</h2>
+                    <p className="text-gray-600 mb-2">{product.descripcion}</p>
+                    <p className="text-lg font-semibold">${product.precio}</p>
+                    <Link to={`/producto/${product.id}`} className="text-blue-600 mt-2 block">
+                        Ver Producto
+                    </Link>
                 </div>
-            </div>
-        </>
+            ))}
+        </div>
     );
 };

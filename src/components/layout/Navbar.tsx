@@ -63,7 +63,7 @@ export const Navbar = () => {
 
                 {/* Logout */}
                 {user ? (
-                    <button onClick={handleLogout} className="text-sm">
+                    <button onClick={handleLogout} className={`hover:text-gray-400 ${isActive("/admin/dashboard") ? "border-b-2 border-black" : ""}`}>
                         LOGOUT
                     </button>
                 ) : (
