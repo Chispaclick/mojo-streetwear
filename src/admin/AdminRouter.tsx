@@ -1,41 +1,45 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AddProductPage } from "./pages/AddProductPage";
-
-import { useAuth } from "../context/AuthContext";
-import { ProtectedRoute } from "../components/ProtectedRoute";
-import { DashboardPage } from "./pages/DaschboardPage";
 import { EditProductPage } from "./pages/EditProductPage";
 
-export const AdminRouter = () => {
-    const { user } = useAuth();
+import { ProtectedRoute } from "../components/ProtectedRoute";
+import { DashboardPage } from "./pages/DaschboardPage";
 
+export const AdminRouter = () => {
     return (
         <Routes>
-            <Route
-                path="add-product"
-                element={
-                    <ProtectedRoute user={user} requiredRole="admin">
-                        <AddProductPage />
-                    </ProtectedRoute>
-                }
-            />
+            {/* Redirect de /admin → /admin/dashboard */}
+            <Route path="" element={<Navigate to="dashboard" replace />} />
+
             <Route
                 path="dashboard"
                 element={
-                    <ProtectedRoute user={user} requiredRole="admin">
+                    <ProtectedRoute requiredRole="admin">
                         <DashboardPage />
                     </ProtectedRoute>
                 }
             />
-            <Route path="*" element={<Navigate to="dashboard" replace />} />
+
+            <Route
+                path="add-product"
+                element={
+                    <ProtectedRoute requiredRole="admin">
+                        <AddProductPage />
+                    </ProtectedRoute>
+                }
+            />
+
             <Route
                 path="edit-product/:id"
                 element={
-                    <ProtectedRoute user={user} requiredRole="admin">
+                    <ProtectedRoute requiredRole="admin">
                         <EditProductPage />
                     </ProtectedRoute>
                 }
             />
+
+            {/* Catch all */}
+            <Route path="*" element={<Navigate to="dashboard" replace />} />
         </Routes>
     );
 };

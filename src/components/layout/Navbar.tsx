@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store";
 import { useAuth } from "../../context/AuthContext";
@@ -13,11 +13,15 @@ export const Navbar = () => {
 
     const { user } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation(); // Para marcar el link activo
 
     const handleLogout = async () => {
         await signOut(auth);
         navigate("/login");
     };
+
+    // Función para verificar si un link está activo
+    const isActive = (path: string) => location.pathname === path;
 
     return (
         <nav className="bg-white text-black px-6 py-4 flex justify-between items-center">
@@ -28,34 +32,47 @@ export const Navbar = () => {
 
             {/* Links */}
             <div className="flex items-center gap-6">
-                <Link to="/novedades" className="hover:text-gray-400">
+                <Link
+                    to="/novedades"
+                    className={`hover:text-gray-400 ${isActive("/novedades") ? "border-b-2 border-black" : ""}`}
+                >
                     NOVEDADES
                 </Link>
-                <Link to="/hombre" className="hover:text-gray-400">
+                <Link
+                    to="/hombre"
+                    className={`hover:text-gray-400 ${isActive("/hombre") ? "border-b-2 border-black" : ""}`}
+                >
                     HOMBRE
                 </Link>
-                <Link to="/mujer" className="hover:text-gray-400">
+                <Link
+                    to="/mujer"
+                    className={`hover:text-gray-400 ${isActive("/mujer") ? "border-b-2 border-black" : ""}`}
+                >
                     MUJER
                 </Link>
 
+                {/* Solo administrador */}
+                {user && user.role === "admin" && (
+                    <Link
+                        to="/admin/dashboard"
+                        className={`hover:text-gray-400 ${isActive("/admin/dashboard") ? "border-b-2 border-black" : ""}`}
+                    >
+                        ADMINISTRATIVO
+                    </Link>
+                )}
+
+                {/* Logout */}
                 {user ? (
-                    <>
-                        <span className="hover:text-gray-400">
-                            Hola, {user.email}
-                        </span>
-                        <button
-                            onClick={handleLogout}
-                            className="hover:underline text-sm"
-                        >
-                            Logout
-                        </button>
-                    </>
+                    <button onClick={handleLogout} className="text-sm">
+                        LOGOUT
+                    </button>
                 ) : (
                     <Link to="/login" className="hover:text-gray-400">
                         <GuidanceUser2 />
                     </Link>
                 )}
 
+                {/* Carrito */}
                 <Link to="/carrito" className="relative hover:text-gray-400">
                     <MaterialSymbolsLightShoppingBagOutlineSharp />
                     {totalItems > 0 && (
@@ -68,5 +85,3 @@ export const Navbar = () => {
         </nav>
     );
 };
-
-
