@@ -1,10 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/firebase";
-import type { User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../firebase/firebase";
+
+interface UserData {
+    uid: string;
+    email: string | null;
+    role: "admin" | "user";
+}
 
 interface AuthContextType {
-    user: User | null;
+    user: UserData | null;
     loading: boolean;
 }
 
@@ -14,12 +20,29 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<UserData | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            if (!currentUser) {
+                setUser(null);
+                setLoading(false);
+                return;
+            }
+
+            // 🔥 leer rol desde Firestore
+            const userRef = doc(db, "users", currentUser.uid);
+            const snap = await getDoc(userRef);
+
+            const role = snap.exists() ? snap.data().role : "user";
+
+            setUser({
+                uid: currentUser.uid,
+                email: currentUser.email,
+                role,
+            });
+
             setLoading(false);
         });
 
