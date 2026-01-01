@@ -1,3 +1,5 @@
+// src/components/layout/Footer.tsx
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -21,18 +23,36 @@ const Footer = () => {
                             Enlaces
                         </h4>
                         <nav className="flex flex-col gap-3">
-                            <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
+                            <Link
+                                to="/"
+                                className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
+                            >
                                 Inicio
-                            </a>
-                            <a href="#productos" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
-                                Productos
-                            </a>
-                            <a href="#personalizar" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
-                                Personalizar
-                            </a>
-                            <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
+                            </Link>
+                            <Link
+                                to="/hombre"
+                                className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
+                            >
+                                Productos Hombre
+                            </Link>
+                            <Link
+                                to="/mujer"
+                                className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
+                            >
+                                Productos Mujer
+                            </Link>
+                            <Link
+                                to="/novedades"
+                                className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
+                            >
+                                Novedades
+                            </Link>
+                            <Link
+                                to="/contacto"
+                                className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
+                            >
                                 Contacto
-                            </a>
+                            </Link>
                         </nav>
                     </div>
 
@@ -46,21 +66,20 @@ const Footer = () => {
                                 href="mailto:info@mojostreet.com"
                                 className="flex items-center gap-3 text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
                             >
-
                                 info@mojostreet.com
                             </a>
                             <a
                                 href="tel:+1234567890"
                                 className="flex items-center gap-3 text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
                             >
-
                                 +1 234 567 890
                             </a>
                             <a
-                                href="#"
+                                href="https://www.instagram.com/mojostreet"
+                                target="_blank"
                                 className="flex items-center gap-3 text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
+                                rel="noreferrer"
                             >
-
                                 @mojostreet
                             </a>
                         </div>
@@ -73,12 +92,18 @@ const Footer = () => {
                         © {currentYear} MOJO STREET WEAR. Todos los derechos reservados.
                     </p>
                     <div className="flex gap-6">
-                        <a href="#" className="text-primary-foreground/50 hover:text-primary-foreground transition-colors text-xs">
+                        <Link
+                            to="/terminos-y-condiciones"
+                            className="text-primary-foreground/50 hover:text-primary-foreground transition-colors text-xs"
+                        >
                             Términos
-                        </a>
-                        <a href="#" className="text-primary-foreground/50 hover:text-primary-foreground transition-colors text-xs">
+                        </Link>
+                        <Link
+                            to="/privacidad"
+                            className="text-primary-foreground/50 hover:text-primary-foreground transition-colors text-xs"
+                        >
                             Privacidad
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

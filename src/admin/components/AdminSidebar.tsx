@@ -6,7 +6,7 @@ export const AdminSidebar = () => {
     const location = useLocation();
 
     if (!user || user.role !== "admin") return null;
-
+    // icono de productos <FluentMdl2Product />
     const links = [
         { name: "Dashboard", path: "/admin/dashboard" },
         { name: "Productos", path: "/admin/products" },

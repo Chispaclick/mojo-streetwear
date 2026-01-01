@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AdminSidebar } from "../components/AdminSidebar";
 import { getProductById, updateProduct, type Product } from "../services/productService";
-
+import { storage } from "../../firebase/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const EditProductPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [imagenFile, setImagenFile] = useState<File | null>(null);
 
     useEffect(() => {
         if (!id) return;
@@ -23,8 +26,33 @@ export const EditProductPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!id || !product) return;
-        await updateProduct(id, product);
-        navigate("/admin/products");
+        setSaving(true);
+
+        try {
+            let imagenUrl = product.image || "";
+            if (imagenFile) {
+                const storageRef = ref(storage, `productos/${imagenFile.name}`);
+                await uploadBytes(storageRef, imagenFile);
+                imagenUrl = await getDownloadURL(storageRef);
+            }
+
+            await updateProduct(id, {
+                name: product.name,
+                category: product.category,
+                precio: product.precio,
+                description: product.description,
+                image: imagenUrl,
+                stock: product.stock,
+                active: product.active,
+            });
+
+            navigate("/admin/products");
+        } catch (err) {
+            console.error(err);
+            alert("Error al actualizar el producto");
+        } finally {
+            setSaving(false);
+        }
     };
 
     if (loading) return <p className="p-6">Cargando...</p>;
@@ -39,12 +67,13 @@ export const EditProductPage = () => {
                         Nombre:
                         <input
                             type="text"
-                            value={product.nombre}
-                            onChange={(e) => setProduct({ ...product, nombre: e.target.value })}
+                            value={product.name}
+                            onChange={(e) => setProduct({ ...product, name: e.target.value })}
                             className="w-full border p-2 rounded mt-1"
                             required
                         />
                     </label>
+
                     <label className="block mb-2">
                         Precio:
                         <input
@@ -55,19 +84,66 @@ export const EditProductPage = () => {
                             required
                         />
                     </label>
-                    <label className="block mb-4">
+
+                    <label className="block mb-2">
                         Categoría:
                         <select
-                            value={product.categoria}
-                            onChange={(e) => setProduct({ ...product, categoria: e.target.value as "Hombre" | "Mujer" })}
+                            value={product.category}
+                            onChange={(e) =>
+                                setProduct({ ...product, category: e.target.value as "Hombre" | "Mujer" })
+                            }
                             className="w-full border p-2 rounded mt-1"
                         >
                             <option value="Hombre">Hombre</option>
                             <option value="Mujer">Mujer</option>
                         </select>
                     </label>
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded">
-                        Guardar Cambios
+
+                    <label className="block mb-2">
+                        Descripción:
+                        <textarea
+                            value={product.description}
+                            onChange={(e) => setProduct({ ...product, description: e.target.value })}
+                            className="w-full border p-2 rounded mt-1"
+                        />
+                    </label>
+
+                    <label className="block mb-2">
+                        Stock:
+                        <input
+                            type="number"
+                            value={product.stock || 0}
+                            onChange={(e) => setProduct({ ...product, stock: Number(e.target.value) })}
+                            className="w-full border p-2 rounded mt-1"
+                        />
+                    </label>
+
+                    <label className="block mb-4">
+                        Imagen:
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setImagenFile(e.target.files?.[0] || null)}
+                            className="w-full mt-1"
+                        />
+                    </label>
+
+                    <label className="block mb-4 flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            checked={product.active ?? true}
+                            onChange={(e) => setProduct({ ...product, active: e.target.checked })}
+                        />
+                        Activo
+                    </label>
+
+                    <button
+                        type="submit"
+                        className={`bg-blue-600 text-white px-4 py-2 rounded ${saving ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
+                        disabled={saving}
+                    >
+                        {saving ? "Guardando..." : "Guardar Cambios"}
                     </button>
                 </form>
             </main>

@@ -30,12 +30,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 setLoading(false);
                 return;
             }
+            console.log("UID:", currentUser.uid);
 
             // 🔥 leer rol desde Firestore
             const userRef = doc(db, "users", currentUser.uid);
             const snap = await getDoc(userRef);
 
             const role = snap.exists() ? snap.data().role : "user";
+            console.log("Firestore role:", snap.data()?.role);
 
             setUser({
                 uid: currentUser.uid,
@@ -54,6 +56,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             {children}
         </AuthContext.Provider>
     );
+
 };
 
 export const useAuth = () => useContext(AuthContext);

@@ -4,7 +4,8 @@ import type { JSX } from "react";
 
 interface Props {
     children: JSX.Element;
-    requiredRole?: string;
+    requiredRole?: "admin" | "user";
+
 }
 
 export const ProtectedRoute = ({ children, requiredRole }: Props) => {

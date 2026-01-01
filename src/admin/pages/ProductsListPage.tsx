@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { AdminSidebar } from "../components/AdminSidebar";
-
 import { Link } from "react-router-dom";
 import { deleteProduct, getProducts, type Product } from "../services/productService";
 
@@ -40,15 +39,19 @@ export const ProductsListPage = () => {
                             <th className="p-3 text-left">Nombre</th>
                             <th className="p-3 text-left">Precio</th>
                             <th className="p-3 text-left">Categoría</th>
+                            <th className="p-3 text-left">Stock</th>
+                            <th className="p-3 text-left">Activo</th>
                             <th className="p-3 text-left">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {products.map((p) => (
                             <tr key={p.id} className="border-b hover:bg-gray-50">
-                                <td className="p-3">{p.nombre}</td>
+                                <td className="p-3">{p.name}</td>
                                 <td className="p-3">${p.precio}</td>
-                                <td className="p-3">{p.categoria}</td>
+                                <td className="p-3">{p.category}</td>
+                                <td className="p-3">{p.stock ?? "-"}</td>
+                                <td className="p-3">{p.active ? "Sí" : "No"}</td>
                                 <td className="p-3">
                                     <Link
                                         to={`/admin/edit-product/${p.id}`}

@@ -20,7 +20,7 @@ export const AgregarProducto = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 bg-red-500">
             <input
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}

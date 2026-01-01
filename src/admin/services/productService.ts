@@ -10,13 +10,19 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
+
 export interface Product {
     id?: string;
-    nombre: string;
-    categoria: "Hombre" | "Mujer";
+    name: string;
+    category: "Hombre" | "Mujer";
     precio: number;
+    description: string;
+    image?: string;
+    stock?: number;
+    active?: boolean;
     createdAt?: Timestamp;
 }
+
 
 // Referencia a la colección products
 const productsRef = collection(db, "products");

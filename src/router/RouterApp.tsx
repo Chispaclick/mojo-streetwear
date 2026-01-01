@@ -16,13 +16,15 @@ import { Woman } from "../pages/Woman";
 import { Newsletter } from "../components/layout/Newsletter";
 import { Layout } from "../components/layout/Layout";
 import { AdminRouter } from "../admin/AdminRouter";
+import { TermsAndConditions } from "../pages/TermsAndConditions";
+import { Privacy } from "../pages/Privacy";
 //import { DebugAuth } from "../admin/components/DebugAuth";
 
 
 const RouterApp = () => {
     return (
         <BrowserRouter>
-            {/*<DebugAuth />*/}
+            {/* <DebugAuth />*/}
             <div className="flex flex-col min-h-screen">
                 <Routes>
                     {/* Páginas con Hero */}
@@ -105,6 +107,22 @@ const RouterApp = () => {
                         element={
                             <Layout showHero={false}>
                                 <Register />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/terminos-y-condiciones"
+                        element={
+                            <Layout showHero={false}>
+                                <TermsAndConditions />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/privacidad"
+                        element={
+                            <Layout showHero={false}>
+                                <Privacy />
                             </Layout>
                         }
                     />
