@@ -5,41 +5,70 @@ export const Newsletter = () => {
 
     const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Aquí podrías añadir la lógica para enviar el email a tu API o Firebase
         alert(`¡Gracias por suscribirte con ${email}!`);
         setEmail("");
     };
 
     return (
-        <section className="bg-gray-400 text-white py-12">
-            <div className="flex max-w-4xl mx-auto text-center px-4">
-                <div className="flex">
-                    <h2 className="text-2xl font-bold mb-4">
-                        Únete a nuestro club y recibe las últimas novedades
+        <section className="bg-stone-300 text-black py-20">
+            <div className="max-w-5xl mx-auto px-6">
+
+                {/* TEXTO */}
+                <div className="text-center mb-10">
+                    <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-black">
+                        Únete al club MOJO
                     </h2>
+                    <p className="mt-3 text-black max-w-xl mx-auto ">
+                        Accede antes que nadie a nuevos drops, ediciones limitadas y contenido exclusivo.
+                    </p>
                 </div>
-                <div className="flex">
-                    <form
-                        onSubmit={handleSubscribe}
-                        className="flex flex-col sm:flex-row justify-center items-center gap-4"
-                    >
+
+                {/* FORM */}
+                <form
+                    onSubmit={handleSubscribe}
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                >
+                    {/* INPUT CON ESTILO */}
+                    <div className="w-full sm:w-[420px]">
                         <input
                             type="email"
                             placeholder="Introduce tu email"
                             value={email}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="p-3 rounded text-black flex-1 min-w-[250px]"
+                            className="
+                                w-full 
+                                bg-transparent 
+                                border-b text-black/40 
+                                py-3 
+                                px-1 
+                                text-black 
+                                placeholder:text-black/50 
+                                focus:outline-none 
+                                focus:border-black 
+                                transition
+                            "
                         />
-                        <button
-                            type="submit"
-                            className="bg-white text-black font-bold px-6 py-3 rounded hover:bg-gray-200 transition"
-                        >
-                            Suscríbete
-                        </button>
-                    </form>
-                </div>
+                    </div>
+
+                    {/* BOTÓN */}
+                    <button
+                        type="submit"
+                        className="
+                            bg-white 
+                            text-black 
+                            px-8 
+                            py-3 
+                            font-semibold 
+                            tracking-wide 
+                            hover:bg-gray-200 
+                            transition
+                        "
+                    >
+                        SUSCRIBIRME
+                    </button>
+                </form>
             </div>
         </section>
     );
-}
+};

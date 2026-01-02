@@ -1,24 +1,32 @@
-import type { ReactNode } from "react";
-//import { AdminSidebar } from "./AdminSidebar";
+import { Outlet } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { AdminSidebar } from "./AdminSidebar";
+import { Navbar } from "../../components/layout/Navbar";
 
-interface Props {
-    children: ReactNode;
-}
-
-export const AdminLayout = ({ children }: Props) => {
+export const AdminLayout = () => {
     const { user, loading } = useAuth();
 
-    // Espera a que cargue el usuario
-    if (loading) return <p className="p-6">Cargando admin...</p>;
+    if (loading) {
+        return <p className="p-6">Cargando admin...</p>;
+    }
 
-    // Solo admin puede ver el layout
-    if (!user || user.role !== "admin") return <p>No tienes permisos.</p>;
+    if (!user || user.role !== "admin") {
+        return <p className="p-6">No tienes permisos.</p>;
+    }
 
     return (
-        <div className="flex min-h-screen">
+        <div className="min-h-screen flex flex-col">
+            {/* Navbar superior */}
+            <Navbar />
 
-            <main className="flex-1 p-6 bg-gray-100">{children}</main>
+            {/* Contenido admin */}
+            <div className="flex flex-1 bg-gray-100">
+                <AdminSidebar />
+
+                <main className="flex-1 p-6">
+                    <Outlet />
+                </main>
+            </div>
         </div>
     );
 };

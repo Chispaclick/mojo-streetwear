@@ -6,6 +6,7 @@ export const AdminSidebar = () => {
     const location = useLocation();
 
     if (!user || user.role !== "admin") return null;
+    // icono de dashboard <IwwaDashboard />
     // icono de productos <FluentMdl2Product />
     const links = [
         { name: "Dashboard", path: "/admin/dashboard" },
@@ -15,7 +16,7 @@ export const AdminSidebar = () => {
 
     return (
         <aside className="w-64 bg-gray-900 text-white flex flex-col p-4 min-h-screen">
-            <h2 className="text-2xl font-bold mb-6">ADMIN</h2>
+            <h2 className="text-xl mb-6">Menú principal</h2>
             <nav className="flex flex-col gap-2">
                 {links.map((link) => (
                     <Link

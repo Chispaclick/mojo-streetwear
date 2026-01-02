@@ -7,10 +7,22 @@ import { DashboardPage } from "./pages/DaschboardPage";
 import { OrdersListPage } from "./pages/OrdensListPage";
 
 import { ProtectedRoute } from "../components/ProtectedRoute";
+import { AdminLayout } from "./components/AdminLayout";
+
 
 export const AdminRouter = () => {
     return (
         <Routes>
+            {/* Todas las rutas /admin usan ESTE layout */}
+            <Route
+                element={
+                    <ProtectedRoute requiredRole="admin">
+                        <AdminLayout />
+                    </ProtectedRoute>
+                }
+            ></Route>
+
+
             {/* /admin → /admin/dashboard */}
             <Route path="" element={<Navigate to="dashboard" replace />} />
 

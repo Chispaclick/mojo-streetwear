@@ -3,82 +3,72 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
+
     return (
-        <footer className="bg-black text-white px-6 py-6 mt-10">
-            <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                    {/* Brand */}
+        <footer className="bg-gray-100 text-black px-6 py-12 mt-16">
+            <div className="w-full max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-14 mb-14">
+
+                    {/* BRAND */}
                     <div>
-                        <div className="inline-flex flex-col items-start mb-6">
-                            <img src="/Logo.png" className="w-50" />
-                        </div>
-                        <p className="text-primary-foreground/70 text-sm font-light max-w-xs">
+                        <img src="/Logo.png" className="w-70 mb-2" alt="Mojo" />
+
+                        <p className="text-gray-700 text-base leading-relaxed max-w-sm">
                             Camisetas personalizadas de alta calidad para expresar tu estilo único.
                         </p>
                     </div>
 
-                    {/* Links */}
+                    {/* LINKS */}
                     <div>
-                        <h4 className="text-sm tracking-widest uppercase mb-6 font-medium">
+                        <h4 className="text-base tracking-widest uppercase mb-6 font-semibold">
                             Enlaces
                         </h4>
-                        <nav className="flex flex-col gap-3">
-                            <Link
-                                to="/"
-                                className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
-                            >
-                                Inicio
-                            </Link>
-                            <Link
-                                to="/hombre"
-                                className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
-                            >
-                                Productos Hombre
-                            </Link>
-                            <Link
-                                to="/mujer"
-                                className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
-                            >
-                                Productos Mujer
-                            </Link>
-                            <Link
-                                to="/novedades"
-                                className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
-                            >
-                                Novedades
-                            </Link>
-                            <Link
-                                to="/contacto"
-                                className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
-                            >
-                                Contacto
-                            </Link>
+
+                        <nav className="flex flex-col gap-4">
+                            {[
+                                { label: "Inicio", to: "/" },
+                                { label: "Productos Hombre", to: "/hombre" },
+                                { label: "Productos Mujer", to: "/mujer" },
+                                { label: "Novedades", to: "/novedades" },
+                                { label: "Contacto", to: "/contacto" },
+                            ].map(link => (
+                                <Link
+                                    key={link.to}
+                                    to={link.to}
+                                    className="text-gray-700 hover:text-black transition text-base"
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
                         </nav>
                     </div>
 
-                    {/* Contact */}
+                    {/* CONTACTO */}
                     <div>
-                        <h4 className="text-sm tracking-widest uppercase mb-6 font-medium">
+                        <h4 className="text-base tracking-widest uppercase mb-6 font-semibold">
                             Contacto
                         </h4>
-                        <div className="flex flex-col gap-4">
+
+                        <div className="flex flex-col gap-4 text-base">
                             <a
                                 href="mailto:info@mojostreet.com"
-                                className="flex items-center gap-3 text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
+                                className="text-gray-700 hover:text-black transition"
                             >
                                 info@mojostreet.com
                             </a>
+
                             <a
                                 href="tel:+1234567890"
-                                className="flex items-center gap-3 text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
+                                className="text-gray-700 hover:text-black transition"
                             >
                                 +1 234 567 890
                             </a>
+
                             <a
                                 href="https://www.instagram.com/mojostreet"
                                 target="_blank"
-                                className="flex items-center gap-3 text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
                                 rel="noreferrer"
+                                className="text-gray-700 hover:text-black transition"
                             >
                                 @mojostreet
                             </a>
@@ -86,21 +76,22 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Bottom */}
-                <div className="pt-8 border-t border-primary-foreground/20 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-primary-foreground/50 text-xs tracking-wider">
+                {/* BOTTOM */}
+                <div className="pt-8 border-t border-gray-300 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p className="text-gray-500 text-sm tracking-wide">
                         © {currentYear} MOJO STREET WEAR. Todos los derechos reservados.
                     </p>
-                    <div className="flex gap-6">
+
+                    <div className="flex gap-8 text-sm">
                         <Link
                             to="/terminos-y-condiciones"
-                            className="text-primary-foreground/50 hover:text-primary-foreground transition-colors text-xs"
+                            className="text-gray-500 hover:text-black transition"
                         >
                             Términos
                         </Link>
                         <Link
                             to="/privacidad"
-                            className="text-primary-foreground/50 hover:text-primary-foreground transition-colors text-xs"
+                            className="text-gray-500 hover:text-black transition"
                         >
                             Privacidad
                         </Link>
