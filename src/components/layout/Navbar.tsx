@@ -59,6 +59,29 @@ export const Navbar = () => {
                         >
                             MUJER
                         </Link>
+                        <Link
+                            to="/personaliza"
+                            className={`hover:text-gray-400 transition ${isActive("/personaliza") ? "border-b-2 border-black" : ""
+                                }`}
+                        >
+                            PERSONALIZA
+                        </Link>
+
+                        <Link
+                            to="/mojo"
+                            className={`hover:text-gray-400 transition ${isActive("/mojo") ? "border-b-2 border-black" : ""
+                                }`}
+                        >
+                            MOJO
+                        </Link>
+
+                        <Link
+                            to="/contact"
+                            className={`hover:text-gray-400 transition ${isActive("/contacto") ? "border-b-2 border-black" : ""
+                                }`}
+                        >
+                            CONTACTO
+                        </Link>
 
                         {user && user.role === "admin" && (
                             <Link

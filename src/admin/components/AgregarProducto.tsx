@@ -1,37 +1,48 @@
 import { useState } from "react";
 import { addProduct } from "../services/productService";
+import type { Product } from "../services/orders.service";
+
 
 export const AgregarProducto = () => {
-    const [nombre, setNombre] = useState("");
-    const [categoria, setCategoria] = useState<"Hombre" | "Mujer">("Hombre");
-    const [precio, setPrecio] = useState(0);
+    const [name, setName] = useState("");
+    const [category, setCategory] = useState<Product["category"]>("Hombre");
+    const [price, setPrice] = useState(0);
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
 
-        await addProduct({ nombre, categoria, precio });
+        const product: Product = {
+            name,
+            category,
+            price,
+            active: true,
+        };
 
-        setNombre("");
-        setPrecio(0);
+        await addProduct(product);
+
+        setName("");
+        setPrice(0);
         setLoading(false);
         alert("Producto agregado ✅");
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 bg-red-500">
+        <form onSubmit={handleSubmit} className="space-y-4">
             <input
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Nombre"
                 className="border p-2 w-full"
                 required
             />
 
             <select
-                value={categoria}
-                onChange={(e) => setCategoria(e.target.value as any)}
+                value={category}
+                onChange={(e) =>
+                    setCategory(e.target.value as Product["category"])
+                }
                 className="border p-2 w-full"
             >
                 <option value="Hombre">Hombre</option>
@@ -40,8 +51,8 @@ export const AgregarProducto = () => {
 
             <input
                 type="number"
-                value={precio}
-                onChange={(e) => setPrecio(Number(e.target.value))}
+                value={price}
+                onChange={(e) => setPrice(Number(e.target.value))}
                 className="border p-2 w-full"
                 required
             />

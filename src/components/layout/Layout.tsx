@@ -2,7 +2,10 @@
 import type { ReactNode } from "react";
 import { Navbar } from "./Navbar";
 import { Hero } from "./Hero";
-import { FeaturedProducts } from "./FeaturedProducts";
+//import { FeaturedProducts } from "./FeaturedProducts";
+//import { BrandStory } from "./BrandStory";
+//import { WhyMojo } from "./WhyMojo";
+//import { Personalization } from "./Personalization";
 
 
 interface LayoutProps {
@@ -16,7 +19,6 @@ export const Layout = ({ children, showHero = true }: LayoutProps) => {
             <Navbar />
             {showHero && <Hero />}
             <main className="flex-1">{children}</main>
-            <FeaturedProducts />
         </div>
     );
 };

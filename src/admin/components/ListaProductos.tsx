@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-    getProducts,
-    deleteProduct
-} from "../services/productService";
+import { getProducts, deleteProduct } from "../services/productService";
 import { useNavigate } from "react-router-dom";
-import type { Product } from "../../types/product";
+import type { Product } from "../../types/Product";
 
 export const ListaProductos = () => {
     const [productos, setProductos] = useState<Product[]>([]);
@@ -19,7 +16,8 @@ export const ListaProductos = () => {
         loadProducts();
     }, []);
 
-    const handleDelete = async (id: string) => {
+    const handleDelete = async (id?: string) => {
+        if (!id) return;
         if (!confirm("¿Eliminar producto?")) return;
         await deleteProduct(id);
         loadProducts();
@@ -38,9 +36,9 @@ export const ListaProductos = () => {
             <tbody>
                 {productos.map((p) => (
                     <tr key={p.id}>
-                        <td>{p.nombre}</td>
-                        <td>{p.categoria}</td>
-                        <td>{p.precio} €</td>
+                        <td>{p.name}</td>
+                        <td>{p.category}</td>
+                        <td>{p.price} €</td>
                         <td className="space-x-2">
                             <button
                                 onClick={() => navigate(`/admin/edit-product/${p.id}`)}
@@ -49,7 +47,7 @@ export const ListaProductos = () => {
                                 Editar
                             </button>
                             <button
-                                onClick={() => handleDelete(p.id!)}
+                                onClick={() => handleDelete(p.id)}
                                 className="bg-red-600 px-2 text-white"
                             >
                                 Eliminar

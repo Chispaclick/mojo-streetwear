@@ -7,24 +7,27 @@ import { Checkout } from "../pages/Checkout";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 import { ProtectedRoute } from "../components/ProtectedRoute";
-import Footer from "../components/layout/Footer";
 //import { Navbar } from "../components/layout/Navbar";
 //import { Hero } from "../components/layout/Hero";
 import { News } from "../pages/News";
 import { Man } from "../pages/Man";
 import { Woman } from "../pages/Woman";
-import { Newsletter } from "../components/layout/Newsletter";
+import { Newsletter } from "../pages/Newsletter";
 import { Layout } from "../components/layout/Layout";
 import { AdminRouter } from "../admin/AdminRouter";
 import { TermsAndConditions } from "../pages/TermsAndConditions";
 import { Privacy } from "../pages/Privacy";
 //import { DebugAuth } from "../admin/components/DebugAuth";
+import { Personalization } from "../pages/Personalization";
+import { Mojo } from "../pages/Mojo";
+import Footer from "../pages/Footer";
+import { Contants } from "../pages/Contants";
 
 
 const RouterApp = () => {
     return (
         <BrowserRouter>
-            {/* <DebugAuth />*/}
+            {/*<DebugAuth />*/}
             <div className="flex flex-col min-h-screen">
                 <Routes>
                     {/* Páginas con Hero */}
@@ -65,6 +68,30 @@ const RouterApp = () => {
                         element={
                             <Layout showHero={false}>
                                 <Woman />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/personaliza"
+                        element={
+                            <Layout showHero={false}>
+                                <Personalization />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/mojo"
+                        element={
+                            <Layout showHero={false}>
+                                <Mojo />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/contact"
+                        element={
+                            <Layout showHero={false}>
+                                <Contants />
                             </Layout>
                         }
                     />
@@ -127,7 +154,6 @@ const RouterApp = () => {
                         }
                     />
                 </Routes>
-
                 <Newsletter />
                 <Footer />
             </div>

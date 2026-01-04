@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { AdminSidebar } from "../components/AdminSidebar";
 import { Link } from "react-router-dom";
-import { deleteProduct, getProducts, type Product } from "../services/productService";
+import { deleteProduct, getProducts } from "../services/productService";
+
+import { Navbar } from "../../components/layout/Navbar";
+import type { Product } from "../services/orders.service";
 
 export const ProductsListPage = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -14,14 +17,6 @@ export const ProductsListPage = () => {
         setLoading(false);
     };
 
-    const handleDelete = async (id?: string) => {
-        if (!id) return;
-        if (confirm("¿Seguro que quieres eliminar este producto?")) {
-            await deleteProduct(id);
-            fetchProducts();
-        }
-    };
-
     useEffect(() => {
         fetchProducts();
     }, []);
@@ -29,48 +24,30 @@ export const ProductsListPage = () => {
     if (loading) return <p className="p-6">Cargando...</p>;
 
     return (
-        <div className="flex">
-            <AdminSidebar />
-            <main className="flex-1 p-6 bg-gray-100 min-h-screen">
-                <h1 className="text-3xl font-bold mb-4">Productos</h1>
-                <table className="w-full bg-white rounded shadow">
-                    <thead>
-                        <tr className="border-b">
-                            <th className="p-3 text-left">Nombre</th>
-                            <th className="p-3 text-left">Precio</th>
-                            <th className="p-3 text-left">Categoría</th>
-                            <th className="p-3 text-left">Stock</th>
-                            <th className="p-3 text-left">Activo</th>
-                            <th className="p-3 text-left">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products.map((p) => (
-                            <tr key={p.id} className="border-b hover:bg-gray-50">
-                                <td className="p-3">{p.name}</td>
-                                <td className="p-3">${p.precio}</td>
-                                <td className="p-3">{p.category}</td>
-                                <td className="p-3">{p.stock ?? "-"}</td>
-                                <td className="p-3">{p.active ? "Sí" : "No"}</td>
-                                <td className="p-3">
-                                    <Link
-                                        to={`/admin/edit-product/${p.id}`}
-                                        className="text-blue-600 hover:underline mr-3"
-                                    >
-                                        Editar
-                                    </Link>
-                                    <button
-                                        onClick={() => handleDelete(p.id)}
-                                        className="text-red-600 hover:underline"
-                                    >
-                                        Borrar
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </main>
-        </div>
+        <>
+            <Navbar />
+            <div className="flex">
+                <AdminSidebar />
+                <main className="flex-1 p-6 bg-gray-100 min-h-screen">
+                    <table className="w-full bg-white">
+                        <tbody>
+                            {products.map((p) => (
+                                <tr key={p.id}>
+                                    <td>{p.name}</td>
+                                    <td>{p.price} €</td>
+                                    <td>{p.category}</td>
+                                    <td>
+                                        <Link to={`/admin/edit-product/${p.id}`}>Editar</Link>
+                                        <button onClick={() => deleteProduct(p.id!)}>
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </main>
+            </div>
+        </>
     );
 };

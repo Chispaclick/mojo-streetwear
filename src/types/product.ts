@@ -1,8 +1,12 @@
+export type Gender = "Hombre" | "Mujer";
+
 export interface Product {
-    id: string;
+    id?: string;
     name: string;
+    category: Gender;
     price: number;
-    image: string;
-    sizes: string[];
-    colors: string[];
+    description?: string;
+    imageUrl?: string;
+    stock?: number;
+    active?: boolean;
 }

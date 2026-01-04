@@ -6,62 +6,75 @@ import {
     doc,
     updateDoc,
     deleteDoc,
-    Timestamp,
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import type { Product } from "./orders.service";
 
 
-export interface Product {
-    id?: string;
-    name: string;
-    category: "Hombre" | "Mujer";
-    precio: number;
-    description: string;
-    image?: string;
-    stock?: number;
-    active?: boolean;
-    createdAt?: Timestamp;
-}
-
-
-// Referencia a la colección products
 const productsRef = collection(db, "products");
 
-// ➕ Crear producto
+// 🔁 NORMALIZADOR
+const normalizeProduct = (raw: any): Product => ({
+    id: raw.id,
+    name: raw.name ?? raw.nombre,
+    category: raw.category ?? raw.categoria,
+    price: raw.price ?? raw.precio,
+    description: raw.description ?? raw.descripcion,
+    imageUrl: raw.imageUrl ?? raw.image,
+    stock: raw.stock,
+    active: raw.active,
+});
+
+// ➕ Crear
 export const addProduct = async (product: Product) => {
     await addDoc(productsRef, {
-        ...product,
-        createdAt: Timestamp.now(),
+        name: product.name,
+        category: product.category,
+        precio: product.price, // Firestore sigue en español si quieres
+        descripcion: product.description,
+        image: product.imageUrl,
+        stock: product.stock,
+        active: product.active,
     });
 };
 
-// 📄 Obtener todos los productos
+// 📄 Obtener todos
 export const getProducts = async (): Promise<Product[]> => {
     const snapshot = await getDocs(productsRef);
-    return snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as Product),
-    }));
+    return snapshot.docs.map((doc) =>
+        normalizeProduct({ id: doc.id, ...doc.data() })
+    );
 };
 
-// 📄 Obtener producto por ID
+// 📄 Obtener uno
 export const getProductById = async (id: string): Promise<Product> => {
     const ref = doc(db, "products", id);
     const snap = await getDoc(ref);
 
     if (!snap.exists()) throw new Error("Producto no encontrado");
 
-    return { id: snap.id, ...(snap.data() as Product) };
+    return normalizeProduct({ id: snap.id, ...snap.data() });
 };
 
-// ✏️ Actualizar producto
-export const updateProduct = async (id: string, data: Partial<Product>) => {
+// ✏️ Actualizar
+export const updateProduct = async (
+    id: string,
+    data: Partial<Product>
+) => {
     const ref = doc(db, "products", id);
-    await updateDoc(ref, data);
+
+    await updateDoc(ref, {
+        ...(data.name && { name: data.name }),
+        ...(data.category && { categoria: data.category }),
+        ...(data.price !== undefined && { precio: data.price }),
+        ...(data.description && { descripcion: data.description }),
+        ...(data.imageUrl && { image: data.imageUrl }),
+        ...(data.stock !== undefined && { stock: data.stock }),
+        ...(data.active !== undefined && { active: data.active }),
+    });
 };
 
-// ❌ Eliminar producto
+// ❌ Eliminar
 export const deleteProduct = async (id: string) => {
-    const ref = doc(db, "products", id);
-    await deleteDoc(ref);
+    await deleteDoc(doc(db, "products", id));
 };
