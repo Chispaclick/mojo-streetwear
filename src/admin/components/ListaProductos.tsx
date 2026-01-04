@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts, deleteProduct } from "../services/productService";
 import { useNavigate } from "react-router-dom";
-import type { Product } from "../../types/Product";
+import type { Product } from "../../types/product";
 
 export const ListaProductos = () => {
     const [productos, setProductos] = useState<Product[]>([]);

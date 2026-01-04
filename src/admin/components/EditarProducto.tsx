@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProductById, updateProduct } from "../services/productService";
-import type { Product } from "../services/orders.service";
+import type { Product } from "../../types/product";
 
 
 export const EditarProducto = ({ productoId }: { productoId: string }) => {

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { deleteProduct, getProducts } from "../services/productService";
 
 import { Navbar } from "../../components/layout/Navbar";
-import type { Product } from "../services/orders.service";
+import type { Product } from "../../types/product";
 
 export const ProductsListPage = () => {
     const [products, setProducts] = useState<Product[]>([]);

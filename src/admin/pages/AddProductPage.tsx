@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { addProduct } from "../services/productService";
-import type { Product } from "../../types/Product";
+import type { Product } from "../../types/product";
 
-export const AgregarProducto = () => {
+export const AddProductPage = () => {
     const [name, setName] = useState("");
     const [category, setCategory] = useState<Product["category"]>("Hombre");
     const [price, setPrice] = useState(0);

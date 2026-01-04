@@ -8,7 +8,7 @@ import {
     deleteDoc,
 } from "firebase/firestore";
 import { db, storage } from "../../firebase/firebase";
-import type { Product } from "../../types/Product";
+import type { Product } from "../../types/product";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const productsRef = collection(db, "products");

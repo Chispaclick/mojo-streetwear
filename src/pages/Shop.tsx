@@ -1,6 +1,6 @@
 
 import ProductCard from "../components/ui/ProductCard";
-import type { Product } from "../types/Product";
+import type { Product } from "../types/product";
 
 
 // Mock data de ejemplo

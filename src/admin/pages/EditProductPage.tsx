@@ -3,11 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AdminSidebar } from "../components/AdminSidebar";
 import {
     getProductById,
-    updateProduct,
-    type Product,
+    updateProduct
 } from "../services/productService";
 import { storage } from "../../firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import type { Product } from "../../types/product";
 
 export const EditProductPage = () => {
     const { id } = useParams();

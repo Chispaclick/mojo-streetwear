@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { addProduct } from "../services/productService";
-import type { Product } from "../../types/Product";
+import type { Product } from "../../types/product";
 
 export const AgregarProducto = () => {
     const [name, setName] = useState("");
