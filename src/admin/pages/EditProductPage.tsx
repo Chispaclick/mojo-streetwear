@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AdminSidebar } from "../components/AdminSidebar";
-import {
-    getProductById,
-    updateProduct
-} from "../services/productService";
+import { getProductById, updateProduct, type Product } from "../services/productService";
 import { storage } from "../../firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import type { Product } from "../../types/product";
 
 export const EditProductPage = () => {
     const { id } = useParams();
@@ -17,19 +13,28 @@ export const EditProductPage = () => {
     const [saving, setSaving] = useState(false);
     const [imagenFile, setImagenFile] = useState<File | null>(null);
 
+    // 🚀 Fetch product
     useEffect(() => {
         if (!id) return;
-        const fetch = async () => {
-            const data = await getProductById(id);
-            setProduct(data);
-            setLoading(false);
+        const fetchProduct = async () => {
+            try {
+                const data = await getProductById(id);
+                setProduct(data);
+            } catch (err) {
+                console.error(err);
+                alert("Producto no encontrado");
+            } finally {
+                setLoading(false);
+            }
         };
-        fetch();
+        fetchProduct();
     }, [id]);
+
+    if (loading) return <p className="p-6">Cargando...</p>;
+    if (!product) return <p className="p-6">Producto no encontrado</p>;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!id || !product) return;
         setSaving(true);
 
         try {
@@ -40,16 +45,17 @@ export const EditProductPage = () => {
                 imagenUrl = await getDownloadURL(storageRef);
             }
 
-            await updateProduct(id, {
-                name: product.name,
-                category: product.category,
-                price: product.price,
-                description: product.description,
+            // ✅ Pass required fields with defaults to avoid TS errors
+            await updateProduct(product.id!, {
+                name: product.name ?? "",
+                category: product.category ?? "Hombre",
+                price: product.price ?? 0,
+                description: product.description ?? "",
                 imageUrl: imagenUrl,
-                stock: product.stock,
-                active: product.active,
-                sizes: product.sizes,
-                colors: product.colors,
+                stock: product.stock ?? 0,
+                active: product.active ?? true,
+                sizes: product.sizes ?? [],
+                colors: product.colors ?? [],
             });
 
             navigate("/admin/products");
@@ -61,25 +67,18 @@ export const EditProductPage = () => {
         }
     };
 
-    if (loading) return <p className="p-6">Cargando...</p>;
-
     return (
         <div className="flex">
             <AdminSidebar />
             <main className="flex-1 p-6 bg-gray-100 min-h-screen">
                 <h1 className="text-3xl font-bold mb-6">Editar Producto</h1>
-                <form
-                    onSubmit={handleSubmit}
-                    className="bg-white p-6 rounded shadow max-w-md"
-                >
+                <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow max-w-md">
                     <label className="block mb-2">
                         Nombre:
                         <input
                             type="text"
-                            value={product.name}
-                            onChange={(e) =>
-                                setProduct({ ...product, name: e.target.value })
-                            }
+                            value={product.name ?? ""}
+                            onChange={(e) => setProduct({ ...product, name: e.target.value })}
                             className="w-full border p-2 rounded mt-1"
                             required
                         />
@@ -89,10 +88,8 @@ export const EditProductPage = () => {
                         Precio:
                         <input
                             type="number"
-                            value={product.price}
-                            onChange={(e) =>
-                                setProduct({ ...product, price: Number(e.target.value) })
-                            }
+                            value={product.price ?? 0}
+                            onChange={(e) => setProduct({ ...product, price: Number(e.target.value) })}
                             className="w-full border p-2 rounded mt-1"
                             required
                         />
@@ -101,13 +98,8 @@ export const EditProductPage = () => {
                     <label className="block mb-2">
                         Categoría:
                         <select
-                            value={product.category}
-                            onChange={(e) =>
-                                setProduct({
-                                    ...product,
-                                    category: e.target.value as "Hombre" | "Mujer",
-                                })
-                            }
+                            value={product.category ?? "Hombre"}
+                            onChange={(e) => setProduct({ ...product, category: e.target.value as "Hombre" | "Mujer" })}
                             className="w-full border p-2 rounded mt-1"
                         >
                             <option value="Hombre">Hombre</option>
@@ -118,10 +110,8 @@ export const EditProductPage = () => {
                     <label className="block mb-2">
                         Descripción:
                         <textarea
-                            value={product.description}
-                            onChange={(e) =>
-                                setProduct({ ...product, description: e.target.value })
-                            }
+                            value={product.description ?? ""}
+                            onChange={(e) => setProduct({ ...product, description: e.target.value })}
                             className="w-full border p-2 rounded mt-1"
                         />
                     </label>
@@ -131,9 +121,7 @@ export const EditProductPage = () => {
                         <input
                             type="number"
                             value={product.stock ?? 0}
-                            onChange={(e) =>
-                                setProduct({ ...product, stock: Number(e.target.value) })
-                            }
+                            onChange={(e) => setProduct({ ...product, stock: Number(e.target.value) })}
                             className="w-full border p-2 rounded mt-1"
                         />
                     </label>
@@ -143,7 +131,7 @@ export const EditProductPage = () => {
                         <input
                             type="file"
                             accept="image/*"
-                            onChange={(e) => setImagenFile(e.target.files?.[0] || null)}
+                            onChange={(e) => setImagenFile(e.target.files?.[0] ?? null)}
                             className="w-full mt-1"
                         />
                     </label>
@@ -152,17 +140,14 @@ export const EditProductPage = () => {
                         <input
                             type="checkbox"
                             checked={product.active ?? true}
-                            onChange={(e) =>
-                                setProduct({ ...product, active: e.target.checked })
-                            }
+                            onChange={(e) => setProduct({ ...product, active: e.target.checked })}
                         />
                         Activo
                     </label>
 
                     <button
                         type="submit"
-                        className={`bg-blue-600 text-white px-4 py-2 rounded ${saving ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
+                        className={`bg-blue-600 text-white px-4 py-2 rounded ${saving ? "opacity-50 cursor-not-allowed" : ""}`}
                         disabled={saving}
                     >
                         {saving ? "Guardando..." : "Guardar Cambios"}
