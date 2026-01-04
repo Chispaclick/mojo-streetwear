@@ -2,30 +2,37 @@ import { useState } from "react";
 import { addProduct } from "../services/productService";
 import type { Product } from "../../types/Product";
 
-
 export const AgregarProducto = () => {
     const [name, setName] = useState("");
     const [category, setCategory] = useState<Product["category"]>("Hombre");
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState<number>(0);
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
 
-        const product: Product = {
-            name,
-            category,
-            price,
-            active: true,
-        };
+        try {
+            const product: Product = {
+                name: name.trim(),
+                category,
+                price,
+                active: true,
+            };
 
-        await addProduct(product);
+            await addProduct(product);
 
-        setName("");
-        setPrice(0);
-        setLoading(false);
-        alert("Producto agregado ✅");
+            setName("");
+            setCategory("Hombre");
+            setPrice(0);
+
+            alert("Producto agregado ✅");
+        } catch (error) {
+            console.error("Error al agregar producto:", error);
+            alert("Error al guardar el producto ❌");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -53,13 +60,16 @@ export const AgregarProducto = () => {
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(Number(e.target.value))}
+                placeholder="Precio"
                 className="border p-2 w-full"
+                min={0}
                 required
             />
 
             <button
+                type="submit"
                 disabled={loading}
-                className="bg-blue-600 text-white px-4 py-2"
+                className="bg-black text-white px-4 py-2 disabled:opacity-60"
             >
                 {loading ? "Guardando..." : "Agregar producto"}
             </button>

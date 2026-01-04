@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AdminSidebar } from "../components/AdminSidebar";
-import { getProductById, updateProduct, type Product } from "../services/productService";
+import {
+    getProductById,
+    updateProduct,
+    type Product,
+} from "../services/productService";
 import { storage } from "../../firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -29,7 +33,7 @@ export const EditProductPage = () => {
         setSaving(true);
 
         try {
-            let imagenUrl = product.image || "";
+            let imagenUrl = product.imageUrl ?? "";
             if (imagenFile) {
                 const storageRef = ref(storage, `productos/${imagenFile.name}`);
                 await uploadBytes(storageRef, imagenFile);
@@ -39,11 +43,13 @@ export const EditProductPage = () => {
             await updateProduct(id, {
                 name: product.name,
                 category: product.category,
-                precio: product.precio,
+                price: product.price,
                 description: product.description,
-                image: imagenUrl,
+                imageUrl: imagenUrl,
                 stock: product.stock,
                 active: product.active,
+                sizes: product.sizes,
+                colors: product.colors,
             });
 
             navigate("/admin/products");
@@ -62,13 +68,18 @@ export const EditProductPage = () => {
             <AdminSidebar />
             <main className="flex-1 p-6 bg-gray-100 min-h-screen">
                 <h1 className="text-3xl font-bold mb-6">Editar Producto</h1>
-                <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow max-w-md">
+                <form
+                    onSubmit={handleSubmit}
+                    className="bg-white p-6 rounded shadow max-w-md"
+                >
                     <label className="block mb-2">
                         Nombre:
                         <input
                             type="text"
                             value={product.name}
-                            onChange={(e) => setProduct({ ...product, name: e.target.value })}
+                            onChange={(e) =>
+                                setProduct({ ...product, name: e.target.value })
+                            }
                             className="w-full border p-2 rounded mt-1"
                             required
                         />
@@ -78,8 +89,10 @@ export const EditProductPage = () => {
                         Precio:
                         <input
                             type="number"
-                            value={product.precio}
-                            onChange={(e) => setProduct({ ...product, precio: Number(e.target.value) })}
+                            value={product.price}
+                            onChange={(e) =>
+                                setProduct({ ...product, price: Number(e.target.value) })
+                            }
                             className="w-full border p-2 rounded mt-1"
                             required
                         />
@@ -90,7 +103,10 @@ export const EditProductPage = () => {
                         <select
                             value={product.category}
                             onChange={(e) =>
-                                setProduct({ ...product, category: e.target.value as "Hombre" | "Mujer" })
+                                setProduct({
+                                    ...product,
+                                    category: e.target.value as "Hombre" | "Mujer",
+                                })
                             }
                             className="w-full border p-2 rounded mt-1"
                         >
@@ -103,7 +119,9 @@ export const EditProductPage = () => {
                         Descripción:
                         <textarea
                             value={product.description}
-                            onChange={(e) => setProduct({ ...product, description: e.target.value })}
+                            onChange={(e) =>
+                                setProduct({ ...product, description: e.target.value })
+                            }
                             className="w-full border p-2 rounded mt-1"
                         />
                     </label>
@@ -112,8 +130,10 @@ export const EditProductPage = () => {
                         Stock:
                         <input
                             type="number"
-                            value={product.stock || 0}
-                            onChange={(e) => setProduct({ ...product, stock: Number(e.target.value) })}
+                            value={product.stock ?? 0}
+                            onChange={(e) =>
+                                setProduct({ ...product, stock: Number(e.target.value) })
+                            }
                             className="w-full border p-2 rounded mt-1"
                         />
                     </label>
@@ -132,7 +152,9 @@ export const EditProductPage = () => {
                         <input
                             type="checkbox"
                             checked={product.active ?? true}
-                            onChange={(e) => setProduct({ ...product, active: e.target.checked })}
+                            onChange={(e) =>
+                                setProduct({ ...product, active: e.target.checked })
+                            }
                         />
                         Activo
                     </label>

@@ -7,14 +7,13 @@ import {
     updateDoc,
     deleteDoc,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { db, storage } from "../../firebase/firebase";
 import type { Product } from "../../types/Product";
-
-
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const productsRef = collection(db, "products");
 
-// 🔁 NORMALIZADOR
+// 🔁 Normalizador
 const normalizeProduct = (raw: any): Product => ({
     id: raw.id,
     name: raw.name ?? raw.nombre,
@@ -24,18 +23,22 @@ const normalizeProduct = (raw: any): Product => ({
     imageUrl: raw.imageUrl ?? raw.image,
     stock: raw.stock,
     active: raw.active,
+    sizes: raw.sizes,
+    colors: raw.colors,
 });
 
 // ➕ Crear
 export const addProduct = async (product: Product) => {
     await addDoc(productsRef, {
         name: product.name,
-        category: product.category,
-        precio: product.price, // Firestore sigue en español si quieres
+        categoria: product.category,
+        precio: product.price,
         descripcion: product.description,
         image: product.imageUrl,
-        stock: product.stock,
-        active: product.active,
+        stock: product.stock ?? 0,
+        active: product.active ?? true,
+        sizes: product.sizes ?? [],
+        colors: product.colors ?? [],
     });
 };
 
@@ -49,8 +52,8 @@ export const getProducts = async (): Promise<Product[]> => {
 
 // 📄 Obtener uno
 export const getProductById = async (id: string): Promise<Product> => {
-    const ref = doc(db, "products", id);
-    const snap = await getDoc(ref);
+    const refDoc = doc(db, "products", id);
+    const snap = await getDoc(refDoc);
 
     if (!snap.exists()) throw new Error("Producto no encontrado");
 
@@ -62,9 +65,9 @@ export const updateProduct = async (
     id: string,
     data: Partial<Product>
 ) => {
-    const ref = doc(db, "products", id);
+    const refDoc = doc(db, "products", id);
 
-    await updateDoc(ref, {
+    await updateDoc(refDoc, {
         ...(data.name && { name: data.name }),
         ...(data.category && { categoria: data.category }),
         ...(data.price !== undefined && { precio: data.price }),
@@ -72,6 +75,8 @@ export const updateProduct = async (
         ...(data.imageUrl && { image: data.imageUrl }),
         ...(data.stock !== undefined && { stock: data.stock }),
         ...(data.active !== undefined && { active: data.active }),
+        ...(data.sizes && { sizes: data.sizes }),
+        ...(data.colors && { colors: data.colors }),
     });
 };
 
