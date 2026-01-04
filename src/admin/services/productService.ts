@@ -8,7 +8,8 @@ import {
     deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
-import type { Product } from "./orders.service";
+import type { Product } from "../../types/Product";
+
 
 
 const productsRef = collection(db, "products");

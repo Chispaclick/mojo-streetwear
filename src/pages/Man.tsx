@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 import { getProducts } from "../admin/services/productService";
-import type { Product } from "../types/product";
+import type { Product } from "../types/Product";
 
 export const Man = () => {
     const [products, setProducts] = useState<Product[]>([]);
