@@ -9,20 +9,19 @@ export const AdminSidebar = () => {
     // icono de dashboard <IwwaDashboard />
     // icono de productos <FluentMdl2Product />
     const links = [
-        { name: "Dashboard", path: "/admin/dashboard" },
-        { name: "Productos", path: "/admin/products" },
-        { name: "Agregar Producto", path: "/admin/add-product" },
+        { name: "DASHBOARD", path: "/admin/dashboard" },
+        { name: "PRODUCTOS", path: "/admin/products" },
+        { name: "AGREGAR PRODUCTO", path: "/admin/add-product" },
     ];
 
     return (
-        <aside className="w-64 bg-gray-900 text-white flex flex-col p-4 min-h-screen">
-            <h2 className="text-xl mb-6">Menú principal</h2>
+        <aside className="w-64 bg-gray-100/80 text-black flex flex-col p-4 min-h-screen">
             <nav className="flex flex-col gap-2">
                 {links.map((link) => (
                     <Link
                         key={link.path}
                         to={link.path}
-                        className={`px-3 py-2 rounded hover:bg-gray-700 ${location.pathname === link.path ? "bg-gray-700 font-bold" : ""}`}
+                        className={`px-3 py-2 hover:bg-gray-700 ${location.pathname === link.path ? "bg-gray-200 font-bold" : ""}`}
                     >
                         {link.name}
                     </Link>

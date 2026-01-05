@@ -65,7 +65,7 @@ export const Navbar = () => {
                             <Link
                                 to="/admin/dashboard"
                                 className={`
-                                    text-small text-black
+                                    text-small text-black font-bold
                                     transition
                                     hover:text-gray-400
                                     ${isActive("/admin/dashboard")
