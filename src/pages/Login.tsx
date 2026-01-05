@@ -22,6 +22,7 @@ export const Login = () => {
         });
     };
 
+    const navigate = useNavigate();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -29,18 +30,23 @@ export const Login = () => {
             navigate("/");
         } catch (error) {
             alert("Error al iniciar sesión");
+            console.error(error); // Muy útil para debug
         }
     };
 
-    const navigate = useNavigate();
 
     return (
-        <div className="min-h-[70vh] flex items-center justify-center px-6 bg-[url('/streetwear.jpg')] bg-cover bg-center h-screen w-full">
+        <div className="elative
+                flex min-h-screen w-full items-center justify-center
+                overflow-hidden
+                bg-[url('/street-wear-movil.jpeg')]
+                bg-cover bg-center
+                sm:bg-[url('/hero.jpg')]">
             <form
                 onSubmit={handleSubmit}
-                className="w-full max-w-md border p-8 rounded-lg bg-white"
+                className="w-full max-w-md p-8"
             >
-                <h1 className="text-2xl font-bold mb-6 text-center">
+                <h1 className="text-2xl font-bold mb-6 text-white text-center">
                     Iniciar sesión
                 </h1>
 
@@ -51,7 +57,7 @@ export const Login = () => {
                         placeholder="Email"
                         value={form.email}
                         onChange={handleChange}
-                        className="w-full border px-4 py-2"
+                        className="w-full border border-b px-4 py-2 border-white/50 text-white outline-0"
                     />
 
                     <input
@@ -60,7 +66,7 @@ export const Login = () => {
                         placeholder="Contraseña"
                         value={form.password}
                         onChange={handleChange}
-                        className="w-full border px-4 py-2"
+                        className="w-full border border-white/50 text-white px-4 py-2 outline-0"
                     />
                 </div>
 
@@ -71,7 +77,7 @@ export const Login = () => {
                     Entrar
                 </button>
 
-                <p className="text-sm text-center mt-4">
+                <p className="text-white text-sm text-center mt-4">
                     ¿No tienes cuenta?{" "}
                     <Link to="/registro" className="underline">
                         Regístrate

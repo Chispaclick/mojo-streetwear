@@ -24,72 +24,54 @@ export const Navbar = () => {
     const isActive = (path: string) => location.pathname === path;
 
     return (
-        <nav className="bg-gray-100 text-black border-b border-gray-300 w-full">
+        <nav className="w-full border-b border-gray-300 bg-gray-100 text-black">
+            <div className="relative flex h-20 items-center justify-between px-6">
 
-            <div className="w-full px-6 h-20 flex items-center justify-between">
-
-                {/* IZQUIERDA - LOGO (PEGADO) */}
+                {/* LOGO */}
                 <Link to="/" className="flex items-center">
-                    <img src="/logo-negro.png" className="w-40" alt="Mojo" />
+                    <img
+                        src="/logo-negro.png"
+                        alt="Mojo"
+                        className="w-40 object-contain"
+                    />
                 </Link>
 
-                {/* CENTRO - LINKS (CENTRADOS EN PANTALLA) */}
+                {/* LINKS CENTRALES */}
                 <div className="absolute left-1/2 -translate-x-1/2">
                     <div className="flex items-center gap-8">
-                        <Link
-                            to="/novedades"
-                            className={`hover:text-gray-400 transition ${isActive("/novedades") ? "border-b-2 border-black" : ""
-                                }`}
-                        >
-                            NOVEDADES
-                        </Link>
+                        {[
+                            { to: "/novedades", label: "NOVEDADES" },
+                            { to: "/hombre", label: "HOMBRE" },
+                            { to: "/mujer", label: "MUJER" },
+                            { to: "/personaliza", label: "PERSONALIZA" },
+                            { to: "/mojo", label: "MOJO" },
+                            { to: "/contacto", label: "CONTACTO" },
+                        ].map((link) => (
+                            <Link
+                                key={link.to}
+                                to={link.to}
+                                className={`
+                                    text-small text-black
+                                    transition
+                                    hover:text-gray-400
+                                    ${isActive(link.to) ? "border-b-2 border-black" : ""}
+                                `}
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
 
-                        <Link
-                            to="/hombre"
-                            className={`hover:text-gray-400 transition ${isActive("/hombre") ? "border-b-2 border-black" : ""
-                                }`}
-                        >
-                            HOMBRE
-                        </Link>
-
-                        <Link
-                            to="/mujer"
-                            className={`hover:text-gray-400 transition ${isActive("/mujer") ? "border-b-2 border-black" : ""
-                                }`}
-                        >
-                            MUJER
-                        </Link>
-                        <Link
-                            to="/personaliza"
-                            className={`hover:text-gray-400 transition ${isActive("/personaliza") ? "border-b-2 border-black" : ""
-                                }`}
-                        >
-                            PERSONALIZA
-                        </Link>
-
-                        <Link
-                            to="/mojo"
-                            className={`hover:text-gray-400 transition ${isActive("/mojo") ? "border-b-2 border-black" : ""
-                                }`}
-                        >
-                            MOJO
-                        </Link>
-
-                        <Link
-                            to="/contact"
-                            className={`hover:text-gray-400 transition ${isActive("/contacto") ? "border-b-2 border-black" : ""
-                                }`}
-                        >
-                            CONTACTO
-                        </Link>
-
-                        {user && user.role === "admin" && (
+                        {user?.role === "admin" && (
                             <Link
                                 to="/admin/dashboard"
-                                className={`hover:text-gray-400 transition ${isActive("/admin/dashboard")
-                                    ? "border-b-2 border-black"
-                                    : ""
-                                    }`}
+                                className={`
+                                    text-small text-black
+                                    transition
+                                    hover:text-gray-400
+                                    ${isActive("/admin/dashboard")
+                                        ? "border-b-2 border-black"
+                                        : ""}
+                                `}
                             >
                                 ADMINISTRATIVO
                             </Link>
@@ -97,31 +79,44 @@ export const Navbar = () => {
                     </div>
                 </div>
 
-                {/* DERECHA - USER + CART (PEGADO) */}
+                {/* ACCIONES DERECHA */}
                 <div className="flex items-center gap-6">
                     {user ? (
                         <button
                             onClick={handleLogout}
-                            className="hover:text-gray-400 transition"
+                            className="transition hover:text-gray-400"
+                            aria-label="Cerrar sesión"
                         >
                             <StreamlineCyberDoorExit />
                         </button>
                     ) : (
-                        <Link to="/login" className="hover:text-gray-400 transition">
+                        <Link
+                            to="/login"
+                            className="transition hover:text-gray-400"
+                            aria-label="Iniciar sesión"
+                        >
                             <GuidanceUser2 />
                         </Link>
                     )}
 
-                    <Link to="/carrito" className="relative hover:text-gray-400 transition">
+                    <Link
+                        to="/carrito"
+                        className="relative transition hover:text-gray-400"
+                        aria-label="Carrito"
+                    >
                         <MaterialSymbolsLightShoppingBagOutlineSharp />
+
                         {totalItems > 0 && (
-                            <span className="absolute -top-2 -right-3 bg-black text-white text-xs font-bold rounded-full px-2 py-0.5">
+                            <span className="
+                                absolute -top-2 -right-3
+                                rounded-full bg-black px-2 py-0.5
+                                text-[0.7rem] font-bold text-white
+                            ">
                                 {totalItems}
                             </span>
                         )}
                     </Link>
                 </div>
-
             </div>
         </nav>
     );

@@ -7,7 +7,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyCCQ1G1vM87NUWRBRRNL9o5SLSzJFo7WIA",
     authDomain: "mojo-shop-3a425.firebaseapp.com",
     projectId: "mojo-shop-3a425",
-    storageBucket: "mojo-shop-3a425.firebasestorage.app",
+    storageBucket: "mojo-shop-3a425.appspot.com",
     messagingSenderId: "517693192512",
     appId: "1:517693192512:web:07f9978166851cc54b22a5",
 };

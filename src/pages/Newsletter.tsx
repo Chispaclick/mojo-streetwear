@@ -2,10 +2,11 @@ import { useState } from "react";
 
 export const Newsletter = () => {
     const [email, setEmail] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        alert(`¡Gracias por suscribirte con ${email}!`);
+        setIsModalOpen(true);
         setEmail("");
     };
 
@@ -68,6 +69,27 @@ export const Newsletter = () => {
                         SUSCRIBIRME
                     </button>
                 </form>
+                {isModalOpen && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
+                        <div className="bg-white text-black max-w-md w-full p-8 text-center relative">
+                            <h3 className="text-2xl font-bold mb-4">
+                                ¡Bienvenido al club MOJO!
+                            </h3>
+
+                            <p className="text-gray-600 mb-6">
+                                Gracias por suscribirte a MOJO Street Wear.
+                                Pronto recibirás nuestros drops y contenido exclusivo.
+                            </p>
+
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                className="bg-black text-white px-6 py-3 font-semibold hover:bg-gray-800 transition"
+                            >
+                                CERRAR
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         </section>
     );
