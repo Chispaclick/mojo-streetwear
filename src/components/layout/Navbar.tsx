@@ -10,7 +10,8 @@ import { StreamlineCyberDoorExit } from "../../icons/StreamlineCyberDoorExit";
 import { LetsIconsSettingLineLight } from "../../icons/LetsIconsSettingLineLight";
 
 interface NavbarProps {
-    setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    sidebarOpen?: boolean; // opcional, solo para admin
+    setSidebarOpen?: React.Dispatch<React.SetStateAction<boolean>>; // opcional
 }
 
 export const Navbar = ({ setSidebarOpen }: NavbarProps) => {
@@ -26,11 +27,13 @@ export const Navbar = ({ setSidebarOpen }: NavbarProps) => {
         navigate("/login");
     };
 
+
+
     const isActive = (path: string) => location.pathname === path;
 
     const handleAdminSettingsClick = () => {
         navigate("/admin/dashboard");
-        setSidebarOpen(true);
+        if (setSidebarOpen) setSidebarOpen(true); // abre sidebar solo si existe
     };
 
     return (
@@ -65,26 +68,29 @@ export const Navbar = ({ setSidebarOpen }: NavbarProps) => {
                     </div>
                 </div>
 
-                {/* ACCIONES */}
+                {/* ACCIONES DERECHA */}
                 <div className="flex items-center gap-6">
-                    {user?.role === "admin" && (
-                        <button onClick={handleAdminSettingsClick}>
+                    {/* Botón admin */}
+                    {user?.role === "admin" && setSidebarOpen && (
+                        <button onClick={handleAdminSettingsClick} aria-label="Abrir sidebar admin">
                             <LetsIconsSettingLineLight />
                         </button>
                     )}
 
+                    {/* Logout / Login */}
                     {user ? (
-                        <button onClick={handleLogout}>
+                        <button onClick={handleLogout} aria-label="Cerrar sesión">
                             <StreamlineCyberDoorExit />
                         </button>
                     ) : (
-                        <Link to="/login">
+                        <Link to="/login" aria-label="Iniciar sesión">
                             <GuidanceUser2 />
                         </Link>
                     )}
 
+                    {/* Carrito solo para usuarios normales */}
                     {user?.role !== "admin" && (
-                        <Link to="/carrito" className="relative">
+                        <Link to="/carrito" className="relative" aria-label="Carrito">
                             <MaterialSymbolsLightShoppingBagOutlineSharp />
                             {totalItems > 0 && (
                                 <span className="absolute -top-2 -right-3 rounded-full bg-black px-2 py-0.5 text-[0.7rem] font-bold text-white">

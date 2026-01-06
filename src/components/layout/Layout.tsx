@@ -1,10 +1,6 @@
-
 import type { ReactNode } from "react";
 import { Hero } from "./Hero";
-//import { FeaturedProducts } from "./FeaturedProducts";
-//import { BrandStory } from "./BrandStory";
-//import { WhyMojo } from "./WhyMojo";
-//import { Personalization } from "./Personalization";
+import { Navbar } from "./Navbar";
 
 
 interface LayoutProps {
@@ -15,7 +11,13 @@ interface LayoutProps {
 export const Layout = ({ children, showHero = true }: LayoutProps) => {
     return (
         <div className="flex flex-col min-h-screen">
+            {/* Navbar visible en todas las páginas públicas */}
+            <Navbar />
+
+            {/* Hero opcional */}
             {showHero && <Hero />}
+
+            {/* Contenido de la página */}
             <main className="flex-1">{children}</main>
         </div>
     );
