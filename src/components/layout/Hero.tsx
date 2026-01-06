@@ -6,8 +6,9 @@ export const Hero = () => {
                 flex min-h-screen w-full items-center justify-center
                 overflow-hidden
                 bg-[url('/street-wear-movil.jpeg')]
-                bg-cover bg-center
+                bg-cover 
                 sm:bg-[url('/hero.jpg')]
+                bg-top
             "
         >
             {/* OVERLAY opcional si el fondo molesta */}

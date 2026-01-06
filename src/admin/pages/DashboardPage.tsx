@@ -1,5 +1,6 @@
 import { Navbar } from "../../components/layout/Navbar";
 import { AdminSidebar } from "../components/AdminSidebar";
+
 //import { AdminLayout } from "../components/AdminLayout";
 
 export const DashboardPage = () => {
@@ -10,6 +11,7 @@ export const DashboardPage = () => {
                        bg-[url('/street-wear-movil.jpeg')]
                 bg-cover bg-center
                 sm:bg-[url('/hero.jpg')]">
+                <h1>Hola</h1>
 
                 <div className="flex w-full justify-end">
                     <AdminSidebar />

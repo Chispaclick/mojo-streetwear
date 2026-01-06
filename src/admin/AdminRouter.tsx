@@ -1,13 +1,14 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { ProductsListPage } from "./pages/ProductsListPage";
+
 import { AddProductPage } from "./pages/AddProductPage";
 import { EditProductPage } from "./pages/EditProductPage";
-import { DashboardPage } from "./pages/DaschboardPage";
+import { DashboardPage } from "./pages/DashboardPage";
 import { OrdersListPage } from "./pages/OrdensListPage";
 
 import { ProtectedRoute } from "../components/ProtectedRoute";
 import { AdminLayout } from "./components/AdminLayout";
+import { ProductsListPage } from "./pages/ProductsListPage";
 
 
 export const AdminRouter = () => {

@@ -7,8 +7,15 @@ import { auth } from "../../firebase/firebase";
 import { MaterialSymbolsLightShoppingBagOutlineSharp } from "../../icons/MaterialSymbolsLightShoppingBagOutlineSharp";
 import { GuidanceUser2 } from "../../icons/GuidanceUser2";
 import { StreamlineCyberDoorExit } from "../../icons/StreamlineCyberDoorExit";
+import { LetsIconsSettingLineLight } from "../../icons/LetsIconsSettingLineLight";
+import { AdminSidebar } from "../../admin/components/AdminSidebar";
 
-export const Navbar = () => {
+interface NavbarProps {
+    sidebarOpen?: boolean;
+    setSidebarOpen?: (open: boolean) => void;
+}
+
+export const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
     const items = useSelector((state: RootState) => state.cart.items);
     const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -21,103 +28,120 @@ export const Navbar = () => {
         navigate("/login");
     };
 
+    const toggleSidebar = () => {
+        if (setSidebarOpen) setSidebarOpen(!sidebarOpen);
+    };
+
     const isActive = (path: string) => location.pathname === path;
 
+    const handleAdminSettingsClick = () => {
+        navigate("/admin/dashboard"); // Navegar a dashboard admin
+        if (setSidebarOpen) setSidebarOpen(true); // Abrir sidebar
+    };
+
     return (
-        <nav className="w-full border-b border-gray-300 bg-gray-100 text-black">
-            <div className="relative flex h-20 items-center justify-between px-6">
+        <>
+            <nav className="w-full border-b border-gray-300 bg-gray-100 text-black z-50 relative">
+                <div className="relative flex h-20 items-center justify-between px-6">
 
-                {/* LOGO */}
-                <Link to="/" className="flex items-center">
-                    <img
-                        src="/logo-negro.png"
-                        alt="Mojo"
-                        className="w-40 object-contain"
-                    />
-                </Link>
+                    {/* LOGO */}
+                    <Link to="/" className="flex items-center">
+                        <img
+                            src="/logo-negro.png"
+                            alt="Mojo"
+                            className="w-40 object-contain"
+                        />
+                    </Link>
 
-                {/* LINKS CENTRALES */}
-                <div className="absolute left-1/2 -translate-x-1/2">
-                    <div className="flex items-center gap-8">
-                        {[
-                            { to: "/novedades", label: "NOVEDADES" },
-                            { to: "/hombre", label: "HOMBRE" },
-                            { to: "/mujer", label: "MUJER" },
-                            { to: "/personaliza", label: "PERSONALIZA" },
-                            { to: "/mojo", label: "MOJO" },
-                            { to: "/contacto", label: "CONTACTO" },
-                        ].map((link) => (
-                            <Link
-                                key={link.to}
-                                to={link.to}
-                                className={`
-                                    text-small text-black
-                                    transition
-                                    hover:text-gray-400
-                                    ${isActive(link.to) ? "border-b-2 border-black" : ""}
-                                `}
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
+                    {/* LINKS CENTRALES */}
+                    <div className="absolute left-1/2 -translate-x-1/2">
+                        <div className="flex items-center gap-8">
+                            {[
+                                { to: "/novedades", label: "NOVEDADES" },
+                                { to: "/hombre", label: "HOMBRE" },
+                                { to: "/mujer", label: "MUJER" },
+                                { to: "/personaliza", label: "PERSONALIZA" },
+                                { to: "/mojo", label: "MOJO" },
+                                { to: "/contacto", label: "CONTACTO" },
+                            ].map((link) => (
+                                <Link
+                                    key={link.to}
+                                    to={link.to}
+                                    className={`
+                                        text-small text-black
+                                        transition
+                                        hover:text-gray-400
+                                        ${isActive(link.to) ? "border-b-2 border-black" : ""}
+                                    `}
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
 
+                    {/* ACCIONES DERECHA */}
+                    <div className="flex items-center gap-6">
+                        {/* Botón settings solo para admin */}
                         {user?.role === "admin" && (
-                            <Link
-                                to="/admin/dashboard"
-                                className={`
-                                    text-small text-black font-bold
-                                    transition
-                                    hover:text-gray-400
-                                    ${isActive("/admin/dashboard")
-                                        ? "border-b-2 border-black"
-                                        : ""}
-                                `}
+                            <button
+                                onClick={handleAdminSettingsClick}
+                                className="flex items-center gap-2 text-small text-black font-bold hover:text-gray-400"
+                                aria-label="Abrir sidebar admin"
                             >
-                                ADMINISTRATIVO
+                                <LetsIconsSettingLineLight />
+                            </button>
+                        )}
+
+                        {/* Logout / Login */}
+                        {user ? (
+                            <button
+                                onClick={handleLogout}
+                                className="transition hover:text-gray-400"
+                                aria-label="Cerrar sesión"
+                            >
+                                <StreamlineCyberDoorExit />
+                            </button>
+                        ) : (
+                            <Link
+                                to="/login"
+                                className="transition hover:text-gray-400"
+                                aria-label="Iniciar sesión"
+                            >
+                                <GuidanceUser2 />
+                            </Link>
+                        )}
+
+                        {/* Carrito solo para usuarios normales */}
+                        {user?.role !== "admin" && (
+                            <Link
+                                to="/carrito"
+                                className="relative transition hover:text-gray-400"
+                                aria-label="Carrito"
+                            >
+                                <MaterialSymbolsLightShoppingBagOutlineSharp />
+
+                                {totalItems > 0 && (
+                                    <span
+                                        className="
+                                            absolute -top-2 -right-3
+                                            rounded-full bg-black px-2 py-0.5
+                                            text-[0.7rem] font-bold text-white
+                                        "
+                                    >
+                                        {totalItems}
+                                    </span>
+                                )}
                             </Link>
                         )}
                     </div>
                 </div>
+            </nav>
 
-                {/* ACCIONES DERECHA */}
-                <div className="flex items-center gap-6">
-                    {user ? (
-                        <button
-                            onClick={handleLogout}
-                            className="transition hover:text-gray-400"
-                            aria-label="Cerrar sesión"
-                        >
-                            <StreamlineCyberDoorExit />
-                        </button>
-                    ) : (
-                        <Link
-                            to="/login"
-                            className="transition hover:text-gray-400"
-                            aria-label="Iniciar sesión"
-                        >
-                            <GuidanceUser2 />
-                        </Link>
-                    )}
-
-                    <Link
-                        to="/carrito"
-                        className="relative transition hover:text-gray-400"
-                        aria-label="Carrito"
-                    >
-                        <MaterialSymbolsLightShoppingBagOutlineSharp />
-
-                        {totalItems > 0 && (
-                            <span className="
-                                absolute -top-2 -right-3
-                                rounded-full bg-black px-2 py-0.5
-                                text-[0.7rem] font-bold text-white
-                            ">
-                                {totalItems}
-                            </span>
-                        )}
-                    </Link>
-                </div>
-            </div>
-        </nav>
+            {/* Sidebar admin */}
+            {user?.role === "admin" && setSidebarOpen && (
+                <AdminSidebar isOpen={sidebarOpen} onClose={toggleSidebar} />
+            )}
+        </>
     );
 };
