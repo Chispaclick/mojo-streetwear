@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { AdminSidebar } from "../components/AdminSidebar";
 import { getProductById, updateProduct } from "../services/productService";
 import { storage } from "../../firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -70,7 +69,6 @@ export const EditProductPage = () => {
 
     return (
         <div className="flex">
-            <AdminSidebar />
             <main className="flex-1 p-6 bg-gray-100 min-h-screen">
                 <h1 className="text-3xl font-bold mb-6">Editar Producto</h1>
                 <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow max-w-md">

@@ -7,13 +7,19 @@ import {
     updateDoc,
     deleteDoc,
 } from "firebase/firestore";
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL,
+} from "firebase/storage";
 import { db, storage } from "../../firebase/firebase";
 import type { Product } from "../../types/product";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const productsRef = collection(db, "products");
 
-// 🔁 Normalizador
+/* =========================
+   🔁 Normalizador
+========================= */
 const normalizeProduct = (raw: any): Product => ({
     id: raw.id,
     name: raw.name ?? raw.nombre,
@@ -27,14 +33,41 @@ const normalizeProduct = (raw: any): Product => ({
     colors: raw.colors,
 });
 
-// ➕ Crear
-export const addProduct = async (product: Product) => {
+/* =========================
+   🖼️ Subir imagen a Storage
+========================= */
+export const uploadProductImage = async (file: File): Promise<string> => {
+    const imageRef = ref(
+        storage,
+        `products/${Date.now()}-${file.name}`
+    );
+
+    await uploadBytes(imageRef, file);
+    const downloadURL = await getDownloadURL(imageRef);
+
+    return downloadURL;
+};
+
+/* =========================
+   ➕ Crear producto
+========================= */
+export const addProduct = async (
+    product: Product,
+    imageFile?: File
+) => {
+    let imageUrl = product.imageUrl;
+
+    // 👉 Si hay imagen nueva, se sube
+    if (imageFile) {
+        imageUrl = await uploadProductImage(imageFile);
+    }
+
     await addDoc(productsRef, {
         name: product.name,
         categoria: product.category,
         precio: product.price,
         descripcion: product.description,
-        image: product.imageUrl,
+        image: imageUrl,
         stock: product.stock ?? 0,
         active: product.active ?? true,
         sizes: product.sizes ?? [],
@@ -42,37 +75,52 @@ export const addProduct = async (product: Product) => {
     });
 };
 
-// 📄 Obtener todos
+/* =========================
+   📄 Obtener todos
+========================= */
 export const getProducts = async (): Promise<Product[]> => {
     const snapshot = await getDocs(productsRef);
-    return snapshot.docs.map((doc) =>
-        normalizeProduct({ id: doc.id, ...doc.data() })
+    return snapshot.docs.map((docSnap) =>
+        normalizeProduct({ id: docSnap.id, ...docSnap.data() })
     );
 };
 
-// 📄 Obtener uno
+/* =========================
+   📄 Obtener uno
+========================= */
 export const getProductById = async (id: string): Promise<Product> => {
     const refDoc = doc(db, "products", id);
     const snap = await getDoc(refDoc);
 
-    if (!snap.exists()) throw new Error("Producto no encontrado");
+    if (!snap.exists()) {
+        throw new Error("Producto no encontrado");
+    }
 
     return normalizeProduct({ id: snap.id, ...snap.data() });
 };
 
-// ✏️ Actualizar
+/* =========================
+   ✏️ Actualizar producto
+========================= */
 export const updateProduct = async (
     id: string,
-    data: Partial<Product>
+    data: Partial<Product>,
+    imageFile?: File
 ) => {
     const refDoc = doc(db, "products", id);
+
+    let imageUrl = data.imageUrl;
+
+    if (imageFile) {
+        imageUrl = await uploadProductImage(imageFile);
+    }
 
     await updateDoc(refDoc, {
         ...(data.name && { name: data.name }),
         ...(data.category && { categoria: data.category }),
         ...(data.price !== undefined && { precio: data.price }),
         ...(data.description && { descripcion: data.description }),
-        ...(data.imageUrl && { image: data.imageUrl }),
+        ...(imageUrl && { image: imageUrl }),
         ...(data.stock !== undefined && { stock: data.stock }),
         ...(data.active !== undefined && { active: data.active }),
         ...(data.sizes && { sizes: data.sizes }),
@@ -80,7 +128,9 @@ export const updateProduct = async (
     });
 };
 
-// ❌ Eliminar
+/* =========================
+   ❌ Eliminar producto
+========================= */
 export const deleteProduct = async (id: string) => {
     await deleteDoc(doc(db, "products", id));
 };

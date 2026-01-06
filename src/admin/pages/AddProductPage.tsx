@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { addProduct } from "../services/productService";
 import type { Product } from "../../types/product";
-import { AdminSidebar } from "../components/AdminSidebar";
-import { Navbar } from "../../components/layout/Navbar";
 import { CircumImageOn } from "../../icons/CircumImageOn";
 
 export const AddProductPage = () => {
@@ -47,7 +45,6 @@ export const AddProductPage = () => {
 
     return (
         <>
-            <Navbar />
             <div
                 className="flex flex-col sm:flex-row bg-[url('/street-wear-movil.jpeg')]
                     sm:bg-[url('/hero.jpg')] bg-cover bg-center min-h-screen"
@@ -152,8 +149,6 @@ export const AddProductPage = () => {
                         </div>
                     </form>
                 </div>
-
-                <AdminSidebar />
             </div>
         </>
     );

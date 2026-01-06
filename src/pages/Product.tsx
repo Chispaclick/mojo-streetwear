@@ -37,7 +37,7 @@ export const Product = () => {
                 <div className="mt-6">
                     <p className="font-medium mb-2">Talla</p>
                     <div className="flex gap-3">
-                        {product.sizes.map((size) => (
+                        {product.sizes?.map((size) => (
                             <button
                                 key={size}
                                 onClick={() => setSelectedSize(size)}
@@ -57,7 +57,7 @@ export const Product = () => {
                 <div className="mt-6">
                     <p className="font-medium mb-2">Color</p>
                     <div className="flex gap-3">
-                        {product.colors.map((color) => (
+                        {product.colors?.map((color) => (
                             <button
                                 key={color}
                                 onClick={() => setSelectedColor(color)}

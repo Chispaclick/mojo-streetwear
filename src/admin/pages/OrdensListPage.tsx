@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { AdminSidebar } from "../components/AdminSidebar";
 import { getOrders, updateOrderStatus, type Order, } from "../services/orders.service";
 
 export const OrdersListPage = () => {
@@ -27,7 +26,6 @@ export const OrdersListPage = () => {
 
     return (
         <div className="flex">
-            <AdminSidebar />
             <main className="flex-1 p-6 bg-gray-100 min-h-screen">
                 <h1 className="text-3xl font-bold mb-6">Pedidos</h1>
                 <table className="w-full bg-white rounded shadow">

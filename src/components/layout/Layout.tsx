@@ -1,6 +1,5 @@
 
 import type { ReactNode } from "react";
-import { Navbar } from "./Navbar";
 import { Hero } from "./Hero";
 //import { FeaturedProducts } from "./FeaturedProducts";
 //import { BrandStory } from "./BrandStory";
@@ -16,7 +15,6 @@ interface LayoutProps {
 export const Layout = ({ children, showHero = true }: LayoutProps) => {
     return (
         <div className="flex flex-col min-h-screen">
-            <Navbar />
             {showHero && <Hero />}
             <main className="flex-1">{children}</main>
         </div>
