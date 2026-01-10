@@ -10,8 +10,8 @@ import { StreamlineCyberDoorExit } from "../../icons/StreamlineCyberDoorExit";
 import { LetsIconsSettingLineLight } from "../../icons/LetsIconsSettingLineLight";
 
 interface NavbarProps {
-    sidebarOpen?: boolean; // opcional, solo para admin
-    setSidebarOpen?: React.Dispatch<React.SetStateAction<boolean>>; // opcional
+    sidebarOpen?: boolean;
+    setSidebarOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Navbar = ({ setSidebarOpen }: NavbarProps) => {
@@ -27,62 +27,65 @@ export const Navbar = ({ setSidebarOpen }: NavbarProps) => {
         navigate("/login");
     };
 
-
-
     const isActive = (path: string) => location.pathname === path;
 
     const handleAdminSettingsClick = () => {
         navigate("/admin/dashboard");
-        if (setSidebarOpen) setSidebarOpen(true); // abre sidebar solo si existe
+        setSidebarOpen?.(true);
     };
 
     return (
-        <nav className="w-full border-b border-gray-300 bg-gray-100 text-black z-50 relative">
+        <nav className="relative z-50 w-full border-b border-gray-300 bg-gray-100 text-black">
             <div className="relative flex h-20 items-center justify-between px-6">
 
                 {/* LOGO */}
                 <Link to="/" className="flex items-center">
-                    <img src="/logo-negro.png" alt="Mojo" className="w-40 object-contain" />
+                    <img
+                        src="/logo-negro.png"
+                        alt="Mojo"
+                        className="w-36 md:w-40 object-contain"
+                    />
                 </Link>
-
-                {/* LINKS CENTRALES */}
-                <div className="absolute left-1/2 -translate-x-1/2">
-                    <div className="flex items-center gap-8">
-                        {[
-                            { to: "/novedades", label: "NOVEDADES" },
-                            { to: "/hombre", label: "HOMBRE" },
-                            { to: "/mujer", label: "MUJER" },
-                            { to: "/personaliza", label: "PERSONALIZA" },
-                            { to: "/mojo", label: "MOJO" },
-                            { to: "/contacto", label: "CONTACTO" },
-                        ].map((link) => (
-                            <Link
-                                key={link.to}
-                                to={link.to}
-                                className={`text-small transition hover:text-gray-400 ${isActive(link.to) ? "border-b-2 border-black" : ""
-                                    }`}
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
-                    </div>
+                {/* LINKS CENTRALES (solo desktop) */}
+                <div className="hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2 md:gap-8">
+                    {[
+                        { to: "/novedades", label: "NOVEDADES" },
+                        { to: "/hombre", label: "HOMBRE" },
+                        { to: "/mujer", label: "MUJER" },
+                        { to: "/personaliza", label: "PERSONALIZA" },
+                        { to: "/mojo", label: "MOJO" },
+                        { to: "/contacto", label: "CONTACTO" },
+                    ].map((link) => (
+                        <Link
+                            key={link.to}
+                            to={link.to}
+                            className={`text-small transition hover:text-gray-400 ${isActive(link.to) ? "border-b-2 border-black" : ""
+                                }`}
+                        >
+                            {link.label}
+                        </Link>
+                    ))}
                 </div>
 
                 {/* ACCIONES DERECHA */}
-                <div className="flex items-center gap-6">
-                    {/* Botón admin */}
+                <div className="flex items-center gap-4 md:gap-6">
+
+                    {/* Admin settings */}
                     {user?.role === "admin" && (
                         <button
                             onClick={handleAdminSettingsClick}
                             aria-label="Panel administrador"
                         >
-                            <LetsIconsSettingLineLight className="mr-2" />
+                            <LetsIconsSettingLineLight />
                         </button>
                     )}
 
-                    {/* Logout / Login */}
+                    {/* Login / Logout */}
                     {user ? (
-                        <button onClick={handleLogout} aria-label="Cerrar sesión">
+                        <button
+                            onClick={handleLogout}
+                            aria-label="Cerrar sesión"
+                        >
                             <StreamlineCyberDoorExit />
                         </button>
                     ) : (
@@ -91,6 +94,7 @@ export const Navbar = ({ setSidebarOpen }: NavbarProps) => {
                         </Link>
                     )}
 
+                    {/* Carrito */}
                     <Link to="/carrito" className="relative" aria-label="Carrito">
                         <MaterialSymbolsLightShoppingBagOutlineSharp />
                         {totalItems > 0 && (
