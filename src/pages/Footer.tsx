@@ -1,4 +1,3 @@
-// src/components/layout/Footer.tsx
 import { Link, useLocation } from "react-router-dom";
 import { IconamoonEmailLight } from "../icons/IconamoonEmailLight";
 import { UilWhatsapp } from "../icons/UilWhatsapp";
@@ -8,7 +7,6 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
     const location = useLocation();
 
-    // Función para determinar si el enlace es activo
     const isActive = (path: string) => location.pathname === path;
 
     return (
@@ -16,20 +14,20 @@ const Footer = () => {
             <div className="mx-auto max-w-7xl">
 
                 {/* GRID PRINCIPAL */}
-                <div className="grid grid-cols-1 gap-14 md:grid-cols-3 mb-16">
+                <div className="mb-16 grid grid-cols-1 gap-14 md:grid-cols-3">
 
                     {/* BRAND */}
                     <div>
-                        <img src="/Logo.png" className="w-70" alt="Mojo" />
+                        <img src="/Logo.png" className="mb-6 w-40" alt="Mojo" />
 
-                        <p className="text-body text-gray-700 leading-relaxed max-w-sm ml-4">
+                        <p className="ml-1 max-w-sm text-body leading-relaxed text-gray-700">
                             Camisetas personalizadas de alta calidad para expresar tu estilo único.
                         </p>
                     </div>
 
                     {/* LINKS */}
                     <div>
-                        <h4 className="text-body font-semibold tracking-widest uppercase mb-6">
+                        <h4 className="mb-6 text-body font-semibold tracking-widest uppercase">
                             Enlaces
                         </h4>
 
@@ -45,9 +43,11 @@ const Footer = () => {
                                     key={link.to}
                                     to={link.to}
                                     className={`
-    text-body text-gray-700 hover:text-black transition
-    ${isActive(link.to) ? "border-b-2 border-black pb-1 inline-block" : "inline-block"}
-  `}
+                                        inline-flex w-fit items-center
+                                        text-body text-gray-700 transition
+                                        hover:text-gray-400
+                                        ${isActive(link.to) ? "border-b-2 border-black" : ""}
+                                    `}
                                 >
                                     {link.label}
                                 </Link>
@@ -57,21 +57,23 @@ const Footer = () => {
 
                     {/* CONTACTO */}
                     <div>
-                        <h4 className="text-body font-semibold tracking-widest uppercase mb-6">
+                        <h4 className="mb-6 ml-1 text-body font-semibold tracking-widest uppercase">
                             Contacto
                         </h4>
 
-                        <div className="flex flex-col gap-4 text-body">
+                        <div className="flex gap-5 text-body">
                             <a
                                 href="mailto:info@mojostreet.com"
-                                className="text-gray-700 hover:text-black transition"
+                                className="text-gray-700 transition hover:text-gray-400"
+                                aria-label="Email"
                             >
                                 <IconamoonEmailLight />
                             </a>
 
                             <a
-                                href="tel:+1234567890"
-                                className="text-gray-700 hover:text-black transition"
+                                href="tel:+34624891941"
+                                className="text-gray-700 transition hover:text-gray-400"
+                                aria-label="WhatsApp"
                             >
                                 <UilWhatsapp />
                             </a>
@@ -80,7 +82,8 @@ const Footer = () => {
                                 href="https://www.instagram.com/mojostreet"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="text-gray-700 hover:text-black transition"
+                                className="text-gray-700 transition hover:text-gray-400"
+                                aria-label="Instagram"
                             >
                                 <MynauiInstagram />
                             </a>
@@ -90,20 +93,31 @@ const Footer = () => {
 
                 {/* BOTTOM */}
                 <div className="flex flex-col items-center justify-between gap-6 border-t border-gray-300 pt-8 md:flex-row">
-                    <p className="text-small text-gray-500 tracking-wide text-center md:text-left">
+                    <p className="text-small tracking-wide text-gray-500 text-center md:text-left">
                         © {currentYear} MOJO STREET WEAR. Todos los derechos reservados.
                     </p>
 
                     <div className="flex gap-8 text-small">
                         <Link
                             to="/terminos-y-condiciones"
-                            className={`text-gray-500 hover:text-black transition ${isActive("/terminos-y-condiciones") ? "border-b-2 border-black pb-1" : ""}`}
+                            className={`
+                                inline-flex w-fit items-center
+                                text-gray-500 transition
+                                hover:text-gray-400
+                                ${isActive("/terminos-y-condiciones") ? "border-b-2 border-black" : ""}
+                            `}
                         >
                             Términos
                         </Link>
+
                         <Link
                             to="/privacidad"
-                            className={`text-gray-500 hover:text-black transition ${isActive("/privacidad") ? "border-b-2 border-black pb-1" : ""}`}
+                            className={`
+                                inline-flex w-fit items-center
+                                text-gray-500 transition
+                                hover:text-gray-400
+                                ${isActive("/privacidad") ? "border-b-2 border-black" : ""}
+                            `}
                         >
                             Privacidad
                         </Link>

@@ -71,9 +71,12 @@ export const Navbar = ({ setSidebarOpen }: NavbarProps) => {
                 {/* ACCIONES DERECHA */}
                 <div className="flex items-center gap-6">
                     {/* Botón admin */}
-                    {user?.role === "admin" && setSidebarOpen && (
-                        <button onClick={handleAdminSettingsClick} aria-label="Abrir sidebar admin">
-                            <LetsIconsSettingLineLight />
+                    {user?.role === "admin" && (
+                        <button
+                            onClick={handleAdminSettingsClick}
+                            aria-label="Panel administrador"
+                        >
+                            <LetsIconsSettingLineLight className="mr-2" />
                         </button>
                     )}
 
@@ -88,17 +91,14 @@ export const Navbar = ({ setSidebarOpen }: NavbarProps) => {
                         </Link>
                     )}
 
-                    {/* Carrito solo para usuarios normales */}
-                    {user?.role !== "admin" && (
-                        <Link to="/carrito" className="relative" aria-label="Carrito">
-                            <MaterialSymbolsLightShoppingBagOutlineSharp />
-                            {totalItems > 0 && (
-                                <span className="absolute -top-2 -right-3 rounded-full bg-black px-2 py-0.5 text-[0.7rem] font-bold text-white">
-                                    {totalItems}
-                                </span>
-                            )}
-                        </Link>
-                    )}
+                    <Link to="/carrito" className="relative" aria-label="Carrito">
+                        <MaterialSymbolsLightShoppingBagOutlineSharp />
+                        {totalItems > 0 && (
+                            <span className="absolute -top-2 -right-3 rounded-full bg-black px-2 py-0.5 text-[0.7rem] font-bold text-white">
+                                {totalItems}
+                            </span>
+                        )}
+                    </Link>
                 </div>
             </div>
         </nav>

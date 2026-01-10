@@ -6,13 +6,13 @@ export const FeaturedProducts = () => {
             id: "1",
             name: "Camiseta Urban Black",
             price: 29.99,
-            images: ["/images/product-1.jpg", "/images/product-1-hover.jpg"],
+            images: ["/images/product-1.jpg", "/images/product-1.1.jpg"],
         },
         {
             id: "2",
             name: "Oversize White Mojo",
             price: 32.99,
-            images: ["/images/product-2.jpg", "/images/product-2-hover.jpg"],
+            images: ["/images/product-2.jpg", "/images/product-2.2.jpg"],
         },
         {
             id: "3",

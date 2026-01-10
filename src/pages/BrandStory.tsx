@@ -10,14 +10,17 @@ export const BrandStory = () => {
                     </h2>
 
                     <p className="text-body mb-4 text-gray-700">
-                        MOJO nace de la calle, de la cultura urbana y de la necesidad
-                        de vestir sin seguir normas impuestas. Cada prenda está diseñada
-                        para expresar identidad, carácter y libertad.
+                        MOJO nace de la calle, de la cultura urbana y de la necesidad de vestir sin seguir normas impuestas. Creemos en la expresión personal como forma de identidad, en el estilo como lenguaje y en la libertad de vestir sin etiquetas.
                     </p>
 
                     <p className="text-body mb-8 text-gray-700">
-                        Apostamos por diseños exclusivos, materiales de calidad y una
-                        estética minimalista que habla por sí sola.
+                        Cada prenda está pensada para quienes caminan su propio camino, para quienes entienden la moda como una extensión de su carácter. No seguimos tendencias pasajeras: diseñamos piezas con personalidad, equilibrio y propósito.
+                    </p>
+                    <p className="text-body mb-8 text-gray-700">
+                        Apostamos por diseños exclusivos, materiales de calidad y una estética minimalista que no necesita explicación. Menos ruido, más mensaje. Cada detalle importa, cada línea tiene intención.
+                    </p>
+                    <p className="text-body mb-8 text-gray-700">
+                        MOJO no es solo lo que llevas puesto, es cómo te mueves, cómo piensas y cómo te muestras al mundo. Es actitud, es presencia, es calle.
                     </p>
 
                     <button

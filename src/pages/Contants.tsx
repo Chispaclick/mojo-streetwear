@@ -2,6 +2,6 @@
 
 export const Contants = () => {
     return (
-        <div>Contants</div>
+        <h1>Contactos</h1>
     )
 }

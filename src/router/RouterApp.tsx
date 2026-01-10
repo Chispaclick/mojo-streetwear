@@ -89,7 +89,7 @@ const RouterApp = () => {
                         }
                     />
                     <Route
-                        path="/contact"
+                        path="/contacto"
                         element={
                             <Layout showHero={false}>
                                 <Contants />
