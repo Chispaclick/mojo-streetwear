@@ -38,26 +38,13 @@ export const Hero = () => {
                     <button
                         className="
                             w-full sm:w-56
-                            bg-black px-8 py-4
+                           border border-white px-8 py-4
                             text-white
                             font-semibold
-                            transition hover:bg-gray-200
+                            transition hover:bg-gray-200 hover:text-black
                         "
                     >
                         Ver colección
-                    </button>
-
-                    <button
-                        className="
-                            w-full sm:w-56
-                            border border-black
-                            px-8 py-4
-                            text-black
-                            font-semibold
-                            transition hover:bg-black hover:text-black
-                        "
-                    >
-                        Personalizar
                     </button>
                 </div>
             </div>
