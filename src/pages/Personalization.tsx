@@ -58,14 +58,9 @@ export const Personalization = () => {
 
 
                             <img
-                                src="/../images/personaliza-3.png"
+                                src="/personalitation-3.png"
                                 alt="Ejemplo de personalización"
-                                className="w-70 mx-auto max-w-full object-cover rounded"
-                            />
-                            <img
-                                src="/../images/personaliza-4.png"
-                                alt="Ejemplo de personalización"
-                                className="w-60 mx-auto max-w-full object-cover rounded"
+                                className="w-70 mx-auto max-w-full object-cover"
                             />
                         </div>
                     </div>

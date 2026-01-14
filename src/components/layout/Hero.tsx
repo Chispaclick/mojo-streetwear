@@ -26,7 +26,7 @@ export const Hero = () => {
 
                 {/* TEXTO */}
                 <h1 className="text-display text-white">
-                    MOJO: hecha para los que rompen reglas y marcan su camino.
+                    Una marca creada para los que rompen<br /> reglas y marcan su camino.
                 </h1>
 
                 <p className="text-body mt-6 max-w-xl text-white/80">
@@ -38,8 +38,8 @@ export const Hero = () => {
                     <button
                         className="
                             w-full sm:w-56
-                            bg-white px-8 py-4
-                            text-black
+                            bg-black px-8 py-4
+                            text-white
                             font-semibold
                             transition hover:bg-gray-200
                         "
@@ -50,11 +50,11 @@ export const Hero = () => {
                     <button
                         className="
                             w-full sm:w-56
-                            border border-white
+                            border border-black
                             px-8 py-4
-                            text-white
+                            text-black
                             font-semibold
-                            transition hover:bg-white hover:text-black
+                            transition hover:bg-black hover:text-black
                         "
                     >
                         Personalizar

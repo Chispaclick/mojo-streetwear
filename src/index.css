@@ -29,7 +29,7 @@
 
 @layer components {
     .text-display {
-        @apply text-[3.5rem] md:text-[4rem] leading-[1.05] font-extrabold tracking-tight;
+        @apply text-[3.5rem] md:text-[3rem] leading-[1.05] font-extrabold tracking-tight;
     }
 
     .text-title {
