@@ -21,7 +21,8 @@ export const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    // 🔥 NOMBRE CORRECTO
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const handleLogout = async () => {
         await signOut(auth);
@@ -54,8 +55,8 @@ export const Navbar = () => {
                                 key={link.to}
                                 to={link.to}
                                 className={`text-sm ${isActive(link.to)
-                                    ? "border-b-2 border-black"
-                                    : ""
+                                        ? "border-b-2 border-black"
+                                        : ""
                                     }`}
                             >
                                 {link.label}
@@ -94,21 +95,23 @@ export const Navbar = () => {
                             </Link>
                         </div>
 
-                        {/* HAMBURGER */}
+                        {/* HAMBURGER MOBILE */}
                         <button
                             className="md:hidden"
-                            onClick={() => setSidebarOpen((prev) => !prev)}
+                            onClick={() =>
+                                setMobileMenuOpen((prev) => !prev)
+                            }
                         >
-                            {sidebarOpen ? <EiClose /> : <OpenmojiHamburgerMenu />}
+                            {mobileMenuOpen ? <EiClose /> : <OpenmojiHamburgerMenu />}
                         </button>
                     </div>
                 </div>
             </nav>
 
-            {/* SIDEBAR */}
+            {/* SIDEBAR MOBILE */}
             <Sidebar
-                open={sidebarOpen}
-                onClose={() => setSidebarOpen(false)}
+                open={mobileMenuOpen}
+                onClose={() => setMobileMenuOpen(false)}
                 user={user}
                 onLogout={handleLogout}
             />
