@@ -29,7 +29,7 @@
 
 @layer components {
     .text-display {
-        @apply text-[3.5rem] md:text-[3rem] leading-[1.05] font-extrabold tracking-tight;
+        @apply text-[2.2rem] sm:text-[2.8rem] md:text-[3.5rem] leading-[1.05] font-extrabold tracking-tight;
     }
 
     .text-title {
@@ -46,5 +46,9 @@
 
     .text-small {
         @apply text-[0.875rem] uppercase tracking-wider;
+    }
+
+    .text-hero {
+        @apply text-[2.4rem] sm:text-[3rem] md:text-[4rem] leading-[1.05] font-extrabold;
     }
 }
