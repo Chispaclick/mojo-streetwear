@@ -14,9 +14,7 @@ export const AdminLayout = () => {
 
     return (
         <div className="min-h-screen flex flex-col">
-            <Navbar
-                setSidebarOpen={setSidebarOpen}
-            />
+            <Navbar />
 
             <div className="flex flex-1 bg-gray-100">
                 <AdminSidebar
