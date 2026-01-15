@@ -24,7 +24,7 @@ export const BrandStory = () => {
                     </p>
 
                     <button
-                        className="
+                        className=" w-full justify-center
                             inline-flex items-center
                             border border-black
                             px-8 py-3
@@ -43,7 +43,7 @@ export const BrandStory = () => {
                         src="/street-wear-movil.jpeg"
                         alt="MOJO streetwear"
                         className="
-                            w-90 max-w-md
+                            w-140 max-w-md
                             object-cover
                         "
                     />

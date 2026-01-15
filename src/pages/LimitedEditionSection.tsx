@@ -92,7 +92,7 @@ export default function LimitedEditionSection() {
                                 w-full max-w-xs
 
                                 /* DESKTOP */
-                                sm:w-56
+                                sm:w-96
 
                                 border border-white
                                 px-8 py-4
