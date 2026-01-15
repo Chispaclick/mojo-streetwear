@@ -43,7 +43,7 @@ export const BrandStory = () => {
                         src="/street-wear-movil.jpeg"
                         alt="MOJO streetwear"
                         className="
-                            w-full max-w-md
+                            w-90 max-w-md
                             object-cover
                         "
                     />
