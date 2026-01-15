@@ -5,7 +5,7 @@ export const Hero = () => {
                 relative
                 flex min-h-screen w-full items-center justify-center
                 overflow-hidden
-                bg-[url('/street-wear-movil.jpeg')]
+                bg-[url('/personalitation-3.png')]
                 bg-cover 
                 sm:bg-[url('/hero.jpg')]
                 bg-top
