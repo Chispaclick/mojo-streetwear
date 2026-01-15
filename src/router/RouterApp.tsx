@@ -22,6 +22,9 @@ import { Personalization } from "../pages/Personalization";
 import { Mojo } from "../pages/Mojo";
 import Footer from "../pages/Footer";
 import { Contants } from "../pages/Contants";
+import { HoodieMan } from "../pages/HoodieMan";
+import { TshirtsMan } from "../pages/TshirtsMan";
+import { ProductPage } from "../pages/ProductPage";
 
 
 
@@ -56,6 +59,13 @@ const RouterApp = () => {
                             </Layout>
                         }
                     />
+                    { /* Productos */}
+                    <Route
+                        path="/product/:id"
+                        element={
+                            <ProductPage />
+                        }
+                    />
                     <Route
                         path="/hombre"
                         element={
@@ -64,6 +74,23 @@ const RouterApp = () => {
                             </Layout>
                         }
                     />
+                    <Route
+                        path="/hoodieMan"
+                        element={
+                            <Layout showHero={false}>
+                                <HoodieMan />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/tshirtsMan"
+                        element={
+                            <Layout showHero={false}>
+                                <TshirtsMan />
+                            </Layout>
+                        }
+                    />
+
                     <Route
                         path="/mujer"
                         element={

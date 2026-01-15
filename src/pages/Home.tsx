@@ -13,9 +13,9 @@ export const Home = () => {
     console.log(cart);
     return (
         <>
-            <BrandStory />
             <FeaturedProducts />
             <LimitedEditionSection />
+            <BrandStory />
             <WhyMojo />
             <Personalization />
         </>

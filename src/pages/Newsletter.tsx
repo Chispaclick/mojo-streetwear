@@ -17,7 +17,7 @@ export const Newsletter = () => {
                 {/* TEXTO */}
                 <div className="text-center mb-10">
                     <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
-                        Únete al club MOJO
+                        Únete al club MSW
                     </h2>
                     <p className="mt-3 text-white max-w-xl mx-auto ">
                         Accede antes que nadie a nuevos drops, ediciones limitadas y contenido exclusivo.
@@ -73,7 +73,7 @@ export const Newsletter = () => {
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
                         <div className="bg-white text-black max-w-md w-full p-8 text-center relative">
                             <h3 className="text-2xl font-bold mb-4">
-                                ¡Bienvenido al club MOJO!
+                                ¡Bienvenido al club MSW!
                             </h3>
 
                             <p className="text-gray-600 mb-6">

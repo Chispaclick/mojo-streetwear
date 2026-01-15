@@ -1,47 +1,58 @@
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+const heroImages = [
+    "/hero.jpg",
+    "/hero-2.png",
+    "/hero-3.png",
+    "/hero-4.png",
+];
+
 export const Hero = () => {
+    const [currentImage, setCurrentImage] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImage((prev) =>
+                prev === heroImages.length - 1 ? 0 : prev + 1
+            );
+        }, 6000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <section
+            style={{
+                backgroundImage: `url(${heroImages[currentImage]})`,
+            }}
             className="
-                relative
-                flex min-h-screen w-full items-center justify-center
-                overflow-hidden
-                bg-[url('/personalitation-3.png')]
-                bg-cover 
-                sm:bg-[url('/hero.jpg')]
-                bg-top
-            "
+        relative
+        flex min-h-screen w-full items-center justify-center
+        overflow-hidden
+        bg-cover bg-top
+        transition-all duration-1000
+      "
         >
-            {/* OVERLAY opcional si el fondo molesta */}
+            {/* OVERLAY */}
             <div className="absolute inset-0 bg-black/30" />
 
             {/* CONTENT */}
-            <div className="
-        relative z-10
-        mx-auto
-        flex w-full max-w-6xl
-        flex-col
-        items-center
-        px-6
-        text-center
-
-        /* MOBILE */
-        ml-0
-
-        /* DESKTOP */
-        sm:ml-30
-    "
+            <div
+                className="
+          relative z-10
+          mx-auto
+          flex w-full max-w-6xl
+          flex-col
+          items-center
+          px-6
+          text-center
+          ml-40
+        "
             >
-
-                {/*}
-                <img
-                    src="/Logo.png"
-                    alt="MOJO"
-                    className="mb-10 hidden w-72 sm:block"
-                />
-
-                {/* TEXTO */}
                 <h1 className="text-display text-white">
-                    Una marca creada para los que rompen<br /> reglas y marcan su camino.
+                    Una marca creada para los que rompen <br />
+                    reglas y marcan su camino.
                 </h1>
 
                 <p className="text-body mt-6 max-w-xl text-white/80">
@@ -49,18 +60,30 @@ export const Hero = () => {
                 </p>
 
                 {/* CTA */}
-                <div className="mt-12 flex w-full flex-col gap-4 sm:flex-row sm:justify-center">
-                    <button
+                <div className="mt-12 flex flex-col gap-4 sm:flex-row">
+                    <Link
+                        to="/hoodieMan"
                         className="
-                            w-full sm:w-56
-                           border border-white px-8 py-4
-                            text-white
-                            font-semibold
-                            transition hover:bg-gray-200 hover:text-black
-                        "
+              w-56
+              bg-black px-8 py-4
+              text-white font-semibold text-center
+              transition hover:bg-gray-200 hover:text-black
+            "
                     >
-                        Ver colección
-                    </button>
+                        Ver sudaderas
+                    </Link>
+
+                    <Link
+                        to="/tshirtsMan"
+                        className="
+              w-56
+              border border-white px-8 py-4
+              text-white font-semibold text-center
+              transition hover:bg-gray-200 hover:text-black
+            "
+                    >
+                        Ver camisetas
+                    </Link>
                 </div>
             </div>
 
