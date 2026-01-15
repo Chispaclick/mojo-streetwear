@@ -10,7 +10,8 @@ import { StreamlineCyberDoorExit } from "../../icons/StreamlineCyberDoorExit";
 import { LetsIconsSettingLineLight } from "../../icons/LetsIconsSettingLineLight";
 import { OpenmojiHamburgerMenu } from "../../icons/OpenmojiHamburgerMenu";
 import { EiClose } from "../../icons/EiClose";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Sidebar } from "./Sidebar";
 
 export const Navbar = () => {
     const items = useSelector((state: RootState) => state.cart.items);
@@ -22,18 +23,6 @@ export const Navbar = () => {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    useEffect(() => {
-        if (sidebarOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
-        }
-
-        return () => {
-            document.body.style.overflow = "";
-        };
-    }, [sidebarOpen]);
-
     const handleLogout = async () => {
         await signOut(auth);
         navigate("/login");
@@ -43,21 +32,16 @@ export const Navbar = () => {
 
     return (
         <>
-            {/* NAVBAR */}
             <nav className="relative z-50 w-full border-b border-gray-300 bg-gray-100">
                 <div className="flex h-20 items-center justify-between px-6">
 
                     {/* LOGO */}
                     <Link to="/" className="flex items-center">
-                        <img
-                            src="/logo-negro.png"
-                            alt="Mojo"
-                            className="w-36 object-contain"
-                        />
+                        <img src="/logo-negro.png" alt="Mojo" className="w-36" />
                     </Link>
 
-                    {/* LINKS CENTRALES (desktop) */}
-                    <div className="hidden md:flex md:gap-8">
+                    {/* LINKS DESKTOP */}
+                    <div className="hidden md:flex gap-8">
                         {[
                             { to: "/novedades", label: "NOVEDADES" },
                             { to: "/hombre", label: "HOMBRE" },
@@ -69,7 +53,7 @@ export const Navbar = () => {
                             <Link
                                 key={link.to}
                                 to={link.to}
-                                className={`text-sm hover:text-gray-400 ${isActive(link.to)
+                                className={`text-sm ${isActive(link.to)
                                     ? "border-b-2 border-black"
                                     : ""
                                     }`}
@@ -79,12 +63,11 @@ export const Navbar = () => {
                         ))}
                     </div>
 
-                    {/* ACCIONES DERECHA */}
+                    {/* ACCIONES */}
                     <div className="flex items-center gap-4">
 
-                        {/* ICONOS SOLO DESKTOP */}
-                        <div className="hidden md:flex items-center gap-4">
-
+                        {/* ICONOS DESKTOP */}
+                        <div className="hidden md:flex gap-4">
                             {user?.role === "admin" && (
                                 <button onClick={() => navigate("/admin/dashboard")}>
                                     <LetsIconsSettingLineLight />
@@ -111,10 +94,10 @@ export const Navbar = () => {
                             </Link>
                         </div>
 
-                        {/* HAMBURGER / CLOSE (mobile) */}
+                        {/* HAMBURGER */}
                         <button
                             className="md:hidden"
-                            onClick={() => setSidebarOpen(!sidebarOpen)}
+                            onClick={() => setSidebarOpen((prev) => !prev)}
                         >
                             {sidebarOpen ? <EiClose /> : <OpenmojiHamburgerMenu />}
                         </button>
@@ -123,44 +106,12 @@ export const Navbar = () => {
             </nav>
 
             {/* SIDEBAR */}
-            <aside
-                className={`fixed top-0 right-0 z-40 h-screen w-full bg-white
-    transform transition-transform duration-300 ease-in-out
-    ${sidebarOpen ? "translate-x-0" : "translate-x-full"}`}
-            >
-                <div className="flex h-full flex-col gap-6 p-8 pt-24">
-                    {[
-                        { to: "/novedades", label: "NOVEDADES" },
-                        { to: "/hombre", label: "HOMBRE" },
-                        { to: "/mujer", label: "MUJER" },
-                        { to: "/personaliza", label: "PERSONALIZA" },
-                        { to: "/mojo", label: "MOJO" },
-                        { to: "/contacto", label: "CONTACTO" },
-                    ].map((link) => (
-                        <Link
-                            key={link.to}
-                            to={link.to}
-                            onClick={() => setSidebarOpen(false)}
-                            className="text-lg"
-                        >
-                            {link.label}
-                        </Link>
-                    ))}
-
-                    <div className="mt-auto border-t pt-6">
-                        {user ? (
-                            <button onClick={handleLogout} className="text-left text-lg">
-                                Cerrar sesión
-                            </button>
-                        ) : (
-                            <Link to="/login" className="text-lg">
-                                Iniciar sesión
-                            </Link>
-                        )}
-                    </div>
-                </div>
-            </aside>
-
+            <Sidebar
+                open={sidebarOpen}
+                onClose={() => setSidebarOpen(false)}
+                user={user}
+                onLogout={handleLogout}
+            />
         </>
     );
 };
