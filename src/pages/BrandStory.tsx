@@ -1,6 +1,6 @@
 export const BrandStory = () => {
     return (
-        <section className="bg-white px-6 py-24 text-black">
+        <section className="bg-gray-50 px-6 py-24 text-black">
             <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 md:grid-cols-2">
 
                 {/* TEXTO */}

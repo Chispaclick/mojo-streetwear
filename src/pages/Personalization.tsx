@@ -1,3 +1,5 @@
+import { CustomTShirtConfigurator } from "../components/CustomTShirtConfigurator";
+
 export const Personalization = () => {
     return (
         <section className="bg-white px-6 py-24 text-black">
@@ -67,6 +69,7 @@ export const Personalization = () => {
                 </div>
 
             </div>
+            <CustomTShirtConfigurator />
         </section>
     );
 };
