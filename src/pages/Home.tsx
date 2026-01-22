@@ -1,11 +1,10 @@
 
 
 import { FeaturedProducts } from "./FeaturedProducts";
-import { Personalization } from "./Personalization";
+//import { Personalization } from "./Personalization";
 import { WhyMojo } from "./WhyMojo";
 import type { RootState } from "../store";
 import { useSelector } from "react-redux";
-import { BrandStory } from "./BrandStory";
 import LimitedEditionSection from "./LimitedEditionSection";
 
 export const Home = () => {
@@ -15,9 +14,7 @@ export const Home = () => {
         <>
             <FeaturedProducts />
             <LimitedEditionSection />
-            <BrandStory />
             <WhyMojo />
-            <Personalization />
         </>
     )
 }

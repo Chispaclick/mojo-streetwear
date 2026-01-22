@@ -1,12 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-interface AdminSidebarProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
-
-export const AdminSidebar = ({ isOpen, onClose }: AdminSidebarProps) => {
+export const AdminSidebar = () => {
     const { user } = useAuth();
     const location = useLocation();
 
@@ -19,39 +14,34 @@ export const AdminSidebar = ({ isOpen, onClose }: AdminSidebarProps) => {
     ];
 
     return (
-        <>
-            {/* OVERLAY (click fuera = cerrar) */}
-            <div
-                className={`fixed inset-0 bg-black/40 z-10 transition-opacity duration-300
-                ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-                onClick={onClose}
-            />
+        <aside
+            className={`
+        h-full w-64
+        bg-gray-100/95 text-black
+        flex flex-col p-4
+        transform transition-transform duration-300 ease-in-out
+      `}
+        >
+            <nav className="flex flex-col gap-2">
+                {links.map((link) => {
+                    const isActive = location.pathname === link.path;
 
-            {/* SIDEBAR */}
-            <aside
-                className={`
-                    fixed top-0 right-0 h-full w-64
-                    bg-gray-100/95 text-black
-                    flex flex-col p-4
-                    z-20 mt-20
-                    transform transition-transform duration-300 ease-in-out
-                    ${isOpen ? "translate-x-0" : "translate-x-full"}
-                `}
-            >
-                <nav className="flex flex-col gap-2">
-                    {links.map((link) => (
+                    return (
                         <Link
                             key={link.path}
                             to={link.path}
-                            className={`px-3 py-2 rounded hover:bg-gray-300 transition
-                            ${location.pathname === link.path ? "bg-gray-200 font-bold" : ""}`}
-                            onClick={onClose}
+                            className={`
+                px-3 py-2
+                transition-colors duration-200
+                ${isActive ? "border-b border-black w-fit" : ""}
+                hover:text-gray-700
+              `}
                         >
                             {link.name}
                         </Link>
-                    ))}
-                </nav>
-            </aside>
-        </>
+                    );
+                })}
+            </nav>
+        </aside>
     );
 };

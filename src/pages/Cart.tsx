@@ -20,10 +20,10 @@ export const Cart = () => {
             <div className="max-w-4xl mx-auto px-6 py-20 text-center">
                 <h2 className="text-2xl font-bold">Tu carrito está vacío</h2>
                 <Link
-                    to="/tienda"
+                    to="/"
                     className="inline-block mt-6 px-6 py-3 bg-black text-white rounded"
                 >
-                    Ir a la tienda
+                    Comenzar
                 </Link>
             </div>
         );

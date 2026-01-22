@@ -6,8 +6,8 @@ type ProductCardProps = {
 
 export const ProductHoodieCard = ({ image, title, price }: ProductCardProps) => {
     return (
-        <div className="group bg-white overflow-hidden shadow-sm hover:shadow-lg transition hover:border-[0.5px] border-black/50">
-            <div className="overflow-hidden">
+        <div className="flex-col w-[350px] group bg-white overflow-hidden shadow-sm hover:shadow-lg transition hover:outline-[0.5px] outline-black/50">
+            <div className="flex">
                 <img
                     src={image}
                     alt={title}
@@ -27,7 +27,7 @@ export const ProductHoodieCard = ({ image, title, price }: ProductCardProps) => 
 
                 </div>
                 <button className="mt-4 w-full border border-black py-2 text-sm font-semibold hover:bg-black hover:text-white transition">
-                    Comprar
+                    Ver
                 </button>
             </div>
         </div>

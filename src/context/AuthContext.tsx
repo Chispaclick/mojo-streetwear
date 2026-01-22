@@ -25,27 +25,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            if (!currentUser) {
+            try {
+                if (!currentUser) {
+                    setUser(null);
+                    return;
+                }
+
+                const ref = doc(db, "users", currentUser.uid);
+                const snap = await getDoc(ref);
+
+                setUser({
+                    uid: currentUser.uid,
+                    email: currentUser.email,
+                    role: snap.exists() ? snap.data().role : "user",
+                });
+            } catch (error) {
+                console.error("Auth error:", error);
                 setUser(null);
+            } finally {
                 setLoading(false);
-                return;
             }
-            console.log("UID:", currentUser.uid);
-
-            // 🔥 leer rol desde Firestore
-            const userRef = doc(db, "users", currentUser.uid);
-            const snap = await getDoc(userRef);
-
-            const role = snap.exists() ? snap.data().role : "user";
-            console.log("Firestore role:", snap.data()?.role);
-
-            setUser({
-                uid: currentUser.uid,
-                email: currentUser.email,
-                role,
-            });
-
-            setLoading(false);
         });
 
         return unsubscribe;
@@ -56,7 +55,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             {children}
         </AuthContext.Provider>
     );
-
 };
 
 export const useAuth = () => useContext(AuthContext);

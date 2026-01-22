@@ -1,95 +1,109 @@
 import { Link } from "react-router-dom";
+import { ProductHoodieCard } from "../components/ProductHoodieCard";
+
 
 export const FeaturedProducts = () => {
-    const featuredProducts = [
+
+
+    const productsHoodie = [
         {
-            id: "1",
-            name: "Camiseta Urban Black",
-            price: 29.99,
-            images: ["/images/product-1.jpg", "/images/product-1.1.jpg"],
+            id: 1,
+            title: "Sudadera Negra Mojo Flames",
+            price: 70,
+            image: "/../images/hoodies-man/hoodies-man-1.jpg",
         },
         {
-            id: "2",
-            name: "Oversize White Mojo",
-            price: 32.99,
-            images: ["/images/product-2.jpg", "/images/product-2.2.jpg"],
+            id: 2,
+            title: "Sudadera Gris Mojo Logo",
+            price: 70,
+            image: "/../images/hoodies-man/hoodies-man-2.jpg",
         },
         {
-            id: "3",
-            name: "Street Logo Tee",
-            price: 27.99,
-            images: ["/images/product-3.jpg", "/images/product-3-hover.jpg"],
+            id: 3,
+            title: "Sudadera Beige Mojo Worldwide",
+            price: 70,
+            image: "/../images/hoodies-man/hoodies-man-3.jpg",
         },
+        {
+            id: 4,
+            title: "Sudadera Negra Mojo Minimal",
+            price: 70,
+            image: "/../images/hoodies-man/hoodies-man-4.jpg",
+        }
     ];
 
+
+    const productsTshirts = [
+        {
+            id: 1,
+            title: "Sudadera Negra Mojo Flames",
+            price: 70,
+            image: "/../images/t-shirts-man/hombre en camiseta-1.jpg",
+        },
+        {
+            id: 2,
+            title: "Sudadera Gris Mojo Logo",
+            price: 70,
+            image: "/../images/t-shirts-man/hombre en camiseta-2.jpg",
+        },
+        {
+            id: 3,
+            title: "Sudadera Beige Mojo Worldwide",
+            price: 70,
+            image: "/../images/t-shirts-man/hombre en camiseta-3.jpg",
+        },
+        {
+            id: 4,
+            title: "Sudadera Negra Mojo Minimal",
+            price: 70,
+            image: "/../images/t-shirts-man/hombre en camiseta-4.jpg",
+        }
+    ];
+
+
     return (
-        <section className="w-full bg-white py-24">
-            <div className="mx-auto max-w-7xl px-6">
+        <section className="flex-coll w-full bg-white py-24">
+            <div className="mb-5 text-start">
+                <h2 className="text-section ml-55">
+                    MÁS VENDIDOS
+                </h2>
+            </div>
+            <div className="flex w-full gap-3 items-center justify-around px-55">
+                <div className="flex-col">
+                    <div className="flex w-full justify-between">
+                        <p className="text-2xl mb-4">Sudaderas</p>
+                        <Link to="/hoodieMan" className="cursor-pointer font-bold">Ver todo</Link>
+                    </div>
+                    <div className="flex gap-5">
 
-                {/* HEADER */}
-                <div className="mb-16 text-center">
-                    <h2 className="text-section mb-3">
-                        DESTACADOS
-                    </h2>
-
-                    {/* Párrafo introductorio arriba */}
-                    <p className="text-body text-gray-500 mb-2 max-w-2xl mx-auto leading-relaxed">
-                        Descubre nuestra selección de prendas más exclusivas. Cada diseño refleja el estilo urbano, auténtico y sin compromisos que define a MOJO Street Wear.
-                    </p>
-
-                    {/* Párrafo debajo del título */}
-                    <p className="text-body text-gray-500 max-w-2xl mx-auto leading-relaxed">
-                        Estos son los drops más recientes, creados en ediciones limitadas para que vistas con identidad y te destaques donde vayas.
-                    </p>
+                        {productsHoodie.map((product) => (
+                            <ProductHoodieCard
+                                key={product.id}
+                                image={product.image}
+                                title={product.title}
+                                price={product.price}
+                            />
+                        ))}
+                    </div>
                 </div>
+            </div>
+            <div className="flex w-full gap-3 items-center justify-around px-55 mt-8">
+                <div className="flex-col">
+                    <div className="flex w-full justify-between">
+                        <p className="text-2xl mb-4">Camisetas</p>
+                        <Link to="/tshirtsMan" className="cursor-pointer font-bold">Ver todo</Link>
+                    </div>
+                    <div className="flex gap-5">
 
-                {/* GRID */}
-                <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
-                    {featuredProducts.map((product) => (
-                        <Link
-                            key={product.id}
-                            to={`/producto/${product.id}`}
-                            className="group block"
-                        >
-                            {/* IMAGE WRAPPER */}
-                            <div className="relative overflow-hidden bg-gray-100">
-
-                                {/* IMAGE DEFAULT */}
-                                <img
-                                    src={product.images[0]}
-                                    alt={product.name}
-                                    className="
-                                        h-[420px] w-full object-cover
-                                        transition-opacity duration-300
-                                        group-hover:opacity-0
-                                    "
-                                />
-
-                                {/* IMAGE HOVER */}
-                                <img
-                                    src={product.images[1]}
-                                    alt={`${product.name} hover`}
-                                    className="
-                                        absolute inset-0
-                                        h-[420px] w-full object-cover
-                                        opacity-0
-                                        transition-opacity duration-300
-                                        group-hover:opacity-100
-                                    "
-                                />
-                            </div>
-
-                            {/* INFO */}
-                            <div className="mt-4 flex items-center justify-between">
-                                <h3 className="text-body font-medium text-black">
-                                    {product.name}
-                                </h3>
-                                <span className="text-body font-medium text-black">
-                                    €{product.price}
-                                </span>
-                            </div>
-                        </Link>
-                    ))}
+                        {productsTshirts.map((product) => (
+                            <ProductHoodieCard
+                                key={product.id}
+                                image={product.image}
+                                title={product.title}
+                                price={product.price}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

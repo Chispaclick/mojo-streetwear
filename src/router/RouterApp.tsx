@@ -1,187 +1,89 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Layout } from "../components/layout/Layout";
 import { Home } from "../pages/Home";
-//import { Shop } from "../pages/Shop";
-import { Product } from "../pages/Product";
+import { News } from "../pages/News";
+import { Man } from "../pages/Man";
+import { Woman } from "../pages/Woman";
+import { HoodieMan } from "../pages/HoodieMan";
+import { TshirtsMan } from "../pages/TshirtsMan";
+import { TshirtsWoman } from "../pages/TshirtsWoman";
+import { Personalization } from "../pages/Personalization";
+import { Mojo } from "../pages/Mojo";
+import { Contants } from "../pages/Contants";
+import { ProductPage } from "../pages/ProductPage";
 import { Cart } from "../pages/Cart";
 import { Checkout } from "../pages/Checkout";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
-import { ProtectedRoute } from "../components/ProtectedRoute";
-//import { Navbar } from "../components/layout/Navbar";
-//import { Hero } from "../components/layout/Hero";
-import { News } from "../pages/News";
-import { Man } from "../pages/Man";
-import { Woman } from "../pages/Woman";
-import { Newsletter } from "../pages/Newsletter";
-import { Layout } from "../components/layout/Layout";
-import { AdminRouter } from "../admin/AdminRouter";
 import { TermsAndConditions } from "../pages/TermsAndConditions";
 import { Privacy } from "../pages/Privacy";
-//import { DebugAuth } from "../admin/components/DebugAuth";
-import { Personalization } from "../pages/Personalization";
-import { Mojo } from "../pages/Mojo";
+import { ProtectedRoute } from "../components/ProtectedRoute";
+import { Newsletter } from "../pages/Newsletter";
 import Footer from "../pages/Footer";
-import { Contants } from "../pages/Contants";
-import { HoodieMan } from "../pages/HoodieMan";
-import { TshirtsMan } from "../pages/TshirtsMan";
-import { ProductPage } from "../pages/ProductPage";
 
-
+/* ADMIN */
+import { AdminLayout } from "../admin/components/AdminLayout";
+import { DashboardPage } from "../admin/pages/DashboardPage";
+import { ProductsListPage } from "../admin/pages/ProductsListPage";
+import { AddProductPage } from "../admin/pages/AddProductPage";
+import { EditProductPage } from "../admin/pages/EditProductPage";
+import { OrdersListPage } from "../admin/pages/OrdensListPage";
 
 const RouterApp = () => {
     return (
         <BrowserRouter>
-            {/*<DebugAuth />*/}
             <div className="flex flex-col min-h-screen">
                 <Routes>
-                    {/* Páginas con Hero */}
-                    <Route
-                        path="/"
-                        element={
-                            <Layout showHero={true}>
-                                <Home />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/admin/*"
-                        element={
-                            <AdminRouter />
-                        }
-                    />
 
-                    {/* Páginas sin Hero */}
-                    <Route
-                        path="/novedades"
-                        element={
-                            <Layout showHero={false}>
-                                <News />
-                            </Layout>
-                        }
-                    />
-                    { /* Productos */}
-                    <Route
-                        path="/product/:id"
-                        element={
-                            <ProductPage />
-                        }
-                    />
-                    <Route
-                        path="/hombre"
-                        element={
-                            <Layout showHero={false}>
-                                <Man />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/hoodieMan"
-                        element={
-                            <Layout showHero={false}>
-                                <HoodieMan />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/tshirtsMan"
-                        element={
-                            <Layout showHero={false}>
-                                <TshirtsMan />
-                            </Layout>
-                        }
-                    />
+                    {/* PUBLIC */}
+                    <Route path="/" element={<Layout showHero><Home /></Layout>} />
+                    <Route path="/novedades" element={<Layout><News /></Layout>} />
+                    <Route path="/hombre" element={<Layout><Man /></Layout>} />
+                    <Route path="/hoodieMan" element={<Layout><HoodieMan /></Layout>} />
+                    <Route path="/tshirtsMan" element={<Layout><TshirtsMan /></Layout>} />
+                    <Route path="/mujer" element={<Layout><Woman /></Layout>} />
+                    <Route path="/tshirtsWoman" element={<Layout><TshirtsWoman /></Layout>} />
+                    <Route path="/personaliza" element={<Layout><Personalization /></Layout>} />
+                    <Route path="/mojo" element={<Layout><Mojo /></Layout>} />
+                    <Route path="/contacto" element={<Layout><Contants /></Layout>} />
+                    <Route path="/product/:id" element={<ProductPage />} />
+                    <Route path="/carrito" element={<Layout><Cart /></Layout>} />
 
-                    <Route
-                        path="/mujer"
-                        element={
-                            <Layout showHero={false}>
-                                <Woman />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/personaliza"
-                        element={
-                            <Layout showHero={false}>
-                                <Personalization />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/mojo"
-                        element={
-                            <Layout showHero={false}>
-                                <Mojo />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/contacto"
-                        element={
-                            <Layout showHero={false}>
-                                <Contants />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/producto/:id"
-                        element={
-                            <Layout showHero={false}>
-                                <Product />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/carrito"
-                        element={
-                            <Layout showHero={false}>
-                                <Cart />
-                            </Layout>
-                        }
-                    />
                     <Route
                         path="/checkout"
                         element={
-                            <Layout showHero={false}>
-                                <ProtectedRoute>
+                            <ProtectedRoute>
+                                <Layout>
                                     <Checkout />
-                                </ProtectedRoute>
-                            </Layout>
+                                </Layout>
+                            </ProtectedRoute>
                         }
                     />
+
+                    <Route path="/login" element={<Layout><Login /></Layout>} />
+                    <Route path="/registro" element={<Layout><Register /></Layout>} />
+                    <Route path="/terminos-y-condiciones" element={<Layout><TermsAndConditions /></Layout>} />
+                    <Route path="/privacidad" element={<Layout><Privacy /></Layout>} />
+
+                    {/* ADMIN */}
                     <Route
-                        path="/login"
+                        path="/admin"
                         element={
-                            <Layout showHero={false}>
-                                <Login />
-                            </Layout>
+                            <ProtectedRoute requiredRole="admin">
+                                <AdminLayout />
+                            </ProtectedRoute>
                         }
-                    />
-                    <Route
-                        path="/registro"
-                        element={
-                            <Layout showHero={false}>
-                                <Register />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/terminos-y-condiciones"
-                        element={
-                            <Layout showHero={false}>
-                                <TermsAndConditions />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/privacidad"
-                        element={
-                            <Layout showHero={false}>
-                                <Privacy />
-                            </Layout>
-                        }
-                    />
+                    >
+                        <Route index element={<Navigate to="dashboard" replace />} />
+                        <Route path="dashboard" element={<DashboardPage />} />
+                        <Route path="products" element={<ProductsListPage />} />
+                        <Route path="add-product" element={<AddProductPage />} />
+                        <Route path="edit-product/:id" element={<EditProductPage />} />
+                        <Route path="orders" element={<OrdersListPage />} />
+                    </Route>
+
                 </Routes>
+
                 <Newsletter />
                 <Footer />
             </div>
